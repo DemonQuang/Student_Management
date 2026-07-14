@@ -1,0 +1,439 @@
+<!DOCTYPE html><html class="light" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>EduManager | User Detail View</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-container": "#d0e1fb",
+                    "outline-variant": "#c6c6cd",
+                    "on-tertiary-fixed": "#271901",
+                    "on-secondary": "#ffffff",
+                    "surface-container-high": "#eae7e9",
+                    "on-tertiary-fixed-variant": "#574425",
+                    "on-surface-variant": "#45464d",
+                    "surface-container-highest": "#e4e2e4",
+                    "surface-container": "#f0edef",
+                    "inverse-surface": "#303032",
+                    "on-primary-fixed": "#131b2e",
+                    "tertiary": "#000000",
+                    "surface-tint": "#565e74",
+                    "on-tertiary": "#ffffff",
+                    "surface-variant": "#e4e2e4",
+                    "surface-bright": "#fcf8fa",
+                    "on-tertiary-container": "#98805d",
+                    "surface-dim": "#dcd9db",
+                    "tertiary-fixed-dim": "#dec29a",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed-dim": "#bec6e0",
+                    "outline": "#76777d",
+                    "on-error": "#ffffff",
+                    "primary-container": "#131b2e",
+                    "on-secondary-container": "#54647a",
+                    "error-container": "#ffdad6",
+                    "secondary-fixed": "#d3e4fe",
+                    "on-primary-container": "#7c839b",
+                    "surface-container-low": "#f6f3f5",
+                    "inverse-primary": "#bec6e0",
+                    "on-background": "#1b1b1d",
+                    "primary": "#000000",
+                    "secondary-fixed-dim": "#b7c8e1",
+                    "on-secondary-fixed-variant": "#38485d",
+                    "error": "#ba1a1a",
+                    "inverse-on-surface": "#f3f0f2",
+                    "tertiary-fixed": "#fcdeb5",
+                    "tertiary-container": "#271901",
+                    "surface": "#fcf8fa",
+                    "on-surface": "#1b1b1d",
+                    "on-error-container": "#93000a",
+                    "background": "#fcf8fa",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "on-secondary-fixed": "#0b1c30",
+                    "primary-fixed": "#dae2fd",
+                    "on-primary": "#ffffff",
+                    "secondary": "#505f76"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "lg": "24px",
+                    "sm": "8px",
+                    "gutter": "24px",
+                    "xl": "32px",
+                    "xs": "4px",
+                    "2xl": "48px",
+                    "md": "16px",
+                    "margin-mobile": "16px",
+                    "margin-desktop": "32px",
+                    "base": "4px"
+            },
+            "fontFamily": {
+                    "title-md": ["Inter"],
+                    "code": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "body-sm": ["Inter"]
+            },
+            "fontSize": {
+                    "title-md": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "code": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "display-lg": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #fcf8fa; color: #1b1b1d; margin: 0; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .sidebar-active-indicator { position: absolute; left: 0; width: 4px; height: 100%; background-color: #000000; }
+        .glass-card { backdrop-filter: blur(8px); background: rgba(255, 255, 255, 0.8); border: 1px solid #e2e8f0; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #c6c6cd; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-background text-on-background">
+<!-- SideNavBar (Shared Component) -->
+<aside class="w-[260px] h-full fixed left-0 top-0 bg-surface border-r border-outline-variant flex flex-col py-md z-40 hidden md:flex">
+<div class="px-lg mb-xl">
+<h1 class="font-headline-lg text-headline-lg font-bold text-primary">EduManager</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant opacity-70">Administrator Portal</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-title-md text-title-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-title-md text-title-md">Students</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">account_balance</span>
+<span class="font-title-md text-title-md">Departments</span>
+</a>
+<!-- ACTIVE TAB: Users -->
+<a class="flex items-center gap-3 px-4 py-3 text-primary border-l-4 border-primary bg-secondary-container/30 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">manage_accounts</span>
+<span class="font-title-md text-title-md">Users</span>
+</a>
+</nav>
+<div class="mt-auto px-lg pt-md border-t border-outline-variant">
+<div class="flex items-center gap-md">
+<img class="w-10 h-10 rounded-full object-cover" data-alt="Close up professional portrait of a senior academic administrator with a warm smile, wearing a dark navy suit against a soft-focus library background. The lighting is bright and professional, adhering to a high-end corporate light-mode design system." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGOEXdbd_f5j9xNkZec_dHFkcSJELG3FM-awxrlTfWs2UBelc4pZmAfadc4zjGLn6HNSD3Zk4ekhlJxiFypHSDVYIC3hV3ml-JmLScWB5kT0RPvKVo3zm-cO70gFUlaLMUCJjIoxwdIcCxrDmjEU4x02WS5tjbnBz94ZdprVGbjAQrzveU1DQDGYueaBnoMforWGyctRy_Q8mbMtStSVbSZSycBc-P_HTnd1TCbXmWSu887MprOQo7Iw">
+<div>
+<p class="font-label-sm text-label-sm font-bold">Alex Rivera</p>
+<p class="text-[10px] text-on-surface-variant">System Administrator</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="md:ml-[260px] min-h-screen">
+<!-- TopNavBar (Shared Component) -->
+<header class="flex justify-between items-center h-16 px-margin-desktop w-full sticky top-0 z-50 bg-surface border-b border-outline-variant shadow-sm">
+<div class="flex items-center gap-xl">
+<span class="md:hidden material-symbols-outlined text-primary">menu</span>
+<div class="hidden md:flex items-center bg-surface-container px-md py-1.5 rounded-full border border-outline-variant">
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-sm font-body-sm w-64 px-2" placeholder="Search system records..." type="text">
+</div>
+</div>
+<div class="flex items-center gap-lg"><div class="hidden md:flex items-center gap-md mr-2"><img class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGOEXdbd_f5j9xNkZec_dHFkcSJELG3FM-awxrlTfWs2UBelc4pZmAfadc4zjGLn6HNSD3Zk4ekhlJxiFypHSDVYIC3hV3ml-JmLScWB5kT0RPvKVo3zm-cO70gFUlaLMUCJjIoxwdIcCxrDmjEU4x02WS5tjbnBz94ZdprVGbjAQrzveU1DQDGYueaBnoMforWGyctRy_Q8mbMtStSVbSZSycBc-P_HTnd1TCbXmWSu887MprOQo7Iw" alt="Alex Rivera"><div><p class="font-label-sm text-label-sm font-bold">Alex Rivera</p><p class="text-[10px] text-on-surface-variant">System Admin</p></div></div>
+<div class="hidden lg:flex gap-md">
+<a class="text-on-surface-variant font-label-sm text-label-sm hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="text-on-surface-variant font-label-sm text-label-sm hover:text-primary transition-colors" href="#">My Profile</a>
+<a class="text-on-surface-variant font-label-sm text-label-sm hover:text-primary transition-colors" href="#">My Courses</a>
+</div>
+<div class="flex gap-md border-l border-outline-variant pl-lg">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary transition-colors">notifications</span>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary transition-colors">settings</span>
+<button class="bg-primary text-on-primary px-4 py-1.5 rounded-lg text-label-sm font-label-sm hover:opacity-90 transition-all active:scale-95">Logout</button>
+</div>
+</div>
+</header>
+<div class="max-w-[1440px] mx-auto p-margin-desktop">
+<!-- Page Header Actions -->
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-xl gap-md">
+<div>
+<div class="flex items-center gap-sm mb-xs">
+<a class="text-primary hover:underline font-label-sm text-label-sm flex items-center gap-1" href="#">
+<span class="material-symbols-outlined text-sm">arrow_back</span> Back to User List
+                        </a>
+</div>
+<h2 class="font-display-lg text-display-lg text-primary">User Profile</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Manage account details and system-wide permissions for Dr. Helena Vance.</p>
+</div>
+<div class="flex gap-md">
+<button class="flex items-center gap-2 bg-error text-on-error px-md py-lg rounded-xl font-title-md text-title-md hover:brightness-110 transition-all shadow-sm">
+<span class="material-symbols-outlined">block</span> Deactivate Account
+                    </button>
+<button class="flex items-center gap-2 border-2 border-primary text-primary px-md py-lg rounded-xl font-title-md text-title-md hover:bg-primary hover:text-on-primary transition-all">
+<span class="material-symbols-outlined">lock_reset</span> Reset Password
+                    </button>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-12 gap-lg">
+<!-- Left Column: Identity & Primary Info (4 Cols) -->
+<div class="col-span-12 lg:col-span-4 space-y-lg">
+<div class="glass-card rounded-2xl p-lg shadow-sm border border-outline-variant" style="transform: translateY(-2px); transition: transform 0.2s ease-out;">
+<div class="flex flex-col items-center text-center pb-lg border-b border-outline-variant mb-lg">
+<div class="relative group">
+<img class="w-32 h-32 rounded-full object-cover mb-md border-4 border-surface shadow-md" data-alt="Detailed professional headshot of an academic professor, mid-40s, with short dark hair, wearing glasses and a grey blazer. The lighting is cinematic with a soft key light, reflecting a clean academic corporate aesthetic. Neutral modern office background with soft bokeh." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDIDXJxFeY_RUo9dHZ8z8j3bP_Du1MLlRmgWDthth0oYYYb3y1w2Jw-G9IDxDz4ApNocWgWhbDwYDr33wtS_DOy7Cpxlfo1VwHPtYpPQVeYXJWfXXnCskM1uTFfBjDbQK62UkImT-Gnw1paPIZPnAbXDgH_Ga5XXjcCw733geOcRqk1df4rc9HShArxCgCJxRlBJB1DwE_EWyUxezMKg9sJD7Us8C-77aZmyKZfOFabmS0vehUv8uar4w">
+<div class="absolute bottom-1 right-1 bg-primary text-on-primary rounded-full p-1 border-2 border-surface cursor-pointer">
+<span class="material-symbols-outlined text-[16px]">edit</span>
+</div>
+</div>
+<h3 class="font-headline-lg text-headline-lg text-primary">Dr. Helena Vance</h3>
+<span class="inline-flex items-center px-3 py-1 mt-2 rounded-full bg-secondary-container text-on-secondary-fixed-variant font-label-sm text-label-sm">
+<span class="w-2 h-2 rounded-full bg-primary mr-2"></span> Faculty Administrator
+                            </span>
+</div>
+<div class="space-y-md">
+<div class="flex justify-between items-center">
+<span class="text-on-surface-variant font-body-sm text-body-sm">User ID</span>
+<span class="font-title-md text-title-md text-primary">#FAC-88219</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-on-surface-variant font-body-sm text-body-sm">Email</span>
+<span class="font-title-md text-title-md text-primary">h.vance@edu-manager.org</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-on-surface-variant font-body-sm text-body-sm">Department</span>
+<span class="font-title-md text-title-md text-primary">Humanities &amp; Arts</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-on-surface-variant font-body-sm text-body-sm">Joined Date</span>
+<span class="font-title-md text-title-md text-primary">Sept 12, 2021</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-on-surface-variant font-body-sm text-body-sm">Last Seen</span>
+<span class="font-title-md text-title-md text-primary">2 hours ago</span>
+</div>
+</div>
+</div>
+<!-- Status Highlight -->
+<div class="bg-surface-container rounded-2xl p-lg border border-outline-variant flex items-center justify-between">
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">ACCOUNT STATUS</p>
+<p class="font-headline-lg text-headline-lg text-primary font-bold">Active</p>
+</div>
+<div class="h-12 w-12 rounded-full bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined">verified_user</span>
+</div>
+</div>
+</div>
+<!-- Right Column: Details & Tabs (8 Cols) -->
+<div class="col-span-12 lg:col-span-8 space-y-lg">
+<!-- Performance/Access Metrics -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-md">
+<div class="glass-card rounded-2xl p-md border border-outline-variant">
+<p class="font-label-sm text-label-sm text-on-surface-variant">Courses Managed</p>
+<p class="font-display-lg text-display-lg text-primary">14</p>
+<p class="text-[10px] text-primary flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-[12px]">trending_up</span> +2 this semester
+                            </p>
+</div>
+<div class="glass-card rounded-2xl p-md border border-outline-variant">
+<p class="font-label-sm text-label-sm text-on-surface-variant">Assigned Students</p>
+<p class="font-display-lg text-display-lg text-primary">1,240</p>
+<p class="text-[10px] text-on-surface-variant mt-1">Across 3 departments</p>
+</div>
+<div class="glass-card rounded-2xl p-md border border-outline-variant">
+<p class="font-label-sm text-label-sm text-on-surface-variant">System Activity</p>
+<p class="font-display-lg text-display-lg text-primary">98%</p>
+<p class="text-[10px] text-on-surface-variant mt-1">High engagement rating</p>
+</div>
+</div>
+<!-- Permission Settings Card -->
+<div class="glass-card rounded-2xl border border-outline-variant overflow-hidden" style="transform: translateY(0px); transition: transform 0.2s ease-out;">
+<div class="px-lg py-md border-b border-outline-variant flex justify-between items-center bg-surface-container-low">
+<h4 class="font-title-md text-title-md text-primary">Permission Settings</h4>
+<button class="text-primary font-label-sm text-label-sm hover:underline">Edit Privileges</button>
+</div>
+<div class="p-lg space-y-md">
+<div class="flex items-center justify-between py-2 border-b border-outline-variant/30">
+<div class="flex gap-md items-start">
+<span class="material-symbols-outlined text-primary mt-1">manage_search</span>
+<div>
+<p class="font-title-md text-title-md text-primary">Access Student Records</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Ability to view and edit student grades and transcripts.</p>
+</div>
+</div>
+<div class="w-12 h-6 bg-primary rounded-full relative flex items-center cursor-pointer transition-all">
+<div class="w-4 h-4 bg-on-primary rounded-full absolute right-1"></div>
+</div>
+</div>
+<div class="flex items-center justify-between py-2 border-b border-outline-variant/30">
+<div class="flex gap-md items-start">
+<span class="material-symbols-outlined text-primary mt-1">calendar_month</span>
+<div>
+<p class="font-title-md text-title-md text-primary">Course Scheduling</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Create and modify academic calendars and room assignments.</p>
+</div>
+</div>
+<div class="w-12 h-6 bg-primary rounded-full relative flex items-center cursor-pointer transition-all">
+<div class="w-4 h-4 bg-on-primary rounded-full absolute right-1"></div>
+</div>
+</div>
+<div class="flex items-center justify-between py-2">
+<div class="flex gap-md items-start">
+<span class="material-symbols-outlined text-primary mt-1">shield_person</span>
+<div>
+<p class="font-title-md text-title-md text-primary">User Management</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Ability to create or delete other system accounts.</p>
+</div>
+</div>
+<div class="w-12 h-6 bg-outline-variant rounded-full relative flex items-center cursor-pointer transition-all">
+<div class="w-4 h-4 bg-on-primary rounded-full absolute left-1"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Login History Table -->
+<div class="glass-card rounded-2xl border border-outline-variant overflow-hidden">
+<div class="px-lg py-md border-b border-outline-variant bg-surface-container-low">
+<h4 class="font-title-md text-title-md text-primary">Recent Login History</h4>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-surface-container-high/50 border-b border-outline-variant">
+<tr>
+<th class="px-lg py-3 font-label-sm text-label-sm text-on-surface-variant">IP ADDRESS</th>
+<th class="px-lg py-3 font-label-sm text-label-sm text-on-surface-variant">LOCATION</th>
+<th class="px-lg py-3 font-label-sm text-label-sm text-on-surface-variant">DEVICE / BROWSER</th>
+<th class="px-lg py-3 font-label-sm text-label-sm text-on-surface-variant">DATE &amp; TIME</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/30">
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-lg py-4 font-code text-code text-primary">192.168.1.104</td>
+<td class="px-lg py-4 font-body-sm text-body-sm">San Francisco, US</td>
+<td class="px-lg py-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-md">laptop_mac</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Chrome v122 (MacOS)</span>
+</div>
+</td>
+<td class="px-lg py-4 font-body-sm text-body-sm text-on-surface-variant">Today, 09:42 AM</td>
+</tr>
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-lg py-4 font-code text-code text-primary">72.14.192.41</td>
+<td class="px-lg py-4 font-body-sm text-body-sm">San Francisco, US</td>
+<td class="px-lg py-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-md">smartphone</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Safari (iPhone 15)</span>
+</div>
+</td>
+<td class="px-lg py-4 font-body-sm text-body-sm text-on-surface-variant">Yesterday, 06:15 PM</td>
+</tr>
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-lg py-4 font-code text-code text-primary">192.168.1.104</td>
+<td class="px-lg py-4 font-body-sm text-body-sm">San Francisco, US</td>
+<td class="px-lg py-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-md">laptop_mac</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Chrome v122 (MacOS)</span>
+</div>
+</td>
+<td class="px-lg py-4 font-body-sm text-body-sm text-on-surface-variant">Oct 22, 11:20 AM</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="px-lg py-3 border-t border-outline-variant bg-surface-container-low text-center">
+<button class="text-primary font-label-sm text-label-sm hover:underline">View Full Access Logs</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer (Shared Component) -->
+<footer class="w-full py-lg px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-md bg-surface-container border-t border-outline-variant mt-2xl opacity-80 hover:opacity-100 transition-opacity">
+<div class="flex items-center gap-md">
+<span class="font-title-md text-title-md font-semibold text-primary">EduManager</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">© 2024 EduManager Student Management System. All rights reserved.</span>
+</div>
+<div class="flex gap-lg">
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Support</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Terms of Service</a>
+</div>
+</footer>
+</main>
+<!-- Mobile Nav Bar (Shared Component - Hidden on desktop) -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 bg-surface border-t border-outline-variant flex justify-around py-sm z-50">
+<a class="flex flex-col items-center text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-[10px]">Home</span>
+</a>
+<a class="flex flex-col items-center text-primary" href="#">
+<span class="material-symbols-outlined">manage_accounts</span>
+<span class="text-[10px]">Users</span>
+</a>
+<a class="flex flex-col items-center text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">notifications</span>
+<span class="text-[10px]">Alerts</span>
+</a>
+<a class="flex flex-col items-center text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[10px]">Profile</span>
+</a>
+</nav>
+<script>
+        // Micro-interaction for toggles
+        document.querySelectorAll('.w-12.h-6').forEach(toggle => {
+            toggle.addEventListener('click', () => {
+                const dot = toggle.querySelector('div');
+                const isOff = toggle.classList.contains('bg-outline-variant');
+                
+                if (isOff) {
+                    toggle.classList.remove('bg-outline-variant');
+                    toggle.classList.add('bg-primary');
+                    dot.classList.remove('left-1');
+                    dot.classList.add('right-1');
+                } else {
+                    toggle.classList.add('bg-outline-variant');
+                    toggle.classList.remove('bg-primary');
+                    dot.classList.remove('right-1');
+                    dot.classList.add('left-1');
+                }
+            });
+        });
+
+        // Hover animation for cards
+        document.querySelectorAll('.glass-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-2px)';
+                card.style.transition = 'transform 0.2s ease-out';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0px)';
+            });
+        });
+    </script>
+
+
+</body></html>

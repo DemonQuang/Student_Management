@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>EduManager | Professional Login</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "outline": "#76777d",
+                    "surface": "#fcf8fa",
+                    "error-container": "#ffdad6",
+                    "on-primary-container": "#7c839b",
+                    "primary-container": "#131b2e",
+                    "secondary-container": "#d0e1fb",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "on-secondary-fixed": "#0b1c30",
+                    "on-background": "#1b1b1d",
+                    "tertiary-container": "#271901",
+                    "primary-fixed": "#dae2fd",
+                    "surface-bright": "#fcf8fa",
+                    "inverse-surface": "#303032",
+                    "surface-variant": "#e4e2e4",
+                    "primary": "#000000",
+                    "inverse-primary": "#bec6e0",
+                    "surface-tint": "#565e74",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "on-tertiary-container": "#98805d",
+                    "background": "#fcf8fa",
+                    "surface-container-low": "#f6f3f5",
+                    "surface-container-highest": "#e4e2e4",
+                    "tertiary-fixed-dim": "#dec29a",
+                    "on-secondary-container": "#54647a",
+                    "on-primary-fixed": "#131b2e",
+                    "on-tertiary": "#ffffff",
+                    "on-tertiary-fixed-variant": "#574425",
+                    "on-tertiary-fixed": "#271901",
+                    "tertiary": "#000000",
+                    "outline-variant": "#c6c6cd",
+                    "error": "#ba1a1a",
+                    "surface-container-high": "#eae7e9",
+                    "on-surface": "#1b1b1d",
+                    "secondary": "#505f76",
+                    "on-surface-variant": "#45464d",
+                    "on-error-container": "#93000a",
+                    "secondary-fixed": "#d3e4fe",
+                    "on-error": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "secondary-fixed-dim": "#b7c8e1",
+                    "surface-container": "#f0edef",
+                    "primary-fixed-dim": "#bec6e0",
+                    "surface-dim": "#dcd9db",
+                    "inverse-on-surface": "#f3f0f2",
+                    "on-secondary-fixed-variant": "#38485d",
+                    "tertiary-fixed": "#fcdeb5"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "sm": "8px",
+                    "lg": "24px",
+                    "gutter": "24px",
+                    "2xl": "48px",
+                    "margin-desktop": "32px",
+                    "xl": "32px",
+                    "margin-mobile": "16px",
+                    "xs": "4px",
+                    "base": "4px",
+                    "md": "16px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "code": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "body-md": ["Inter"],
+                    "title-md": ["Inter"],
+                    "display-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "code": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "title-md": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "display-lg": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .login-card-backdrop {
+            background: linear-gradient(135deg, rgba(252, 248, 250, 0.95) 0%, rgba(240, 237, 239, 0.95) 100%);
+        }
+        .dark .login-card-backdrop {
+            background: linear-gradient(135deg, rgba(48, 48, 50, 0.98) 0%, rgba(27, 27, 29, 0.98) 100%);
+        }
+        /* Academic-themed background pattern */
+        .academic-pattern {
+            background-color: #fcf8fa;
+            background-image: radial-gradient(#dcd9db 0.5px, transparent 0.5px), radial-gradient(#dcd9db 0.5px, #fcf8fa 0.5px);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+        }
+        .dark .academic-pattern {
+            background-color: #1b1b1d;
+            background-image: radial-gradient(#303032 0.5px, transparent 0.5px), radial-gradient(#303032 0.5px, #1b1b1d 0.5px);
+        }
+    </style>
+</head>
+<body class="academic-pattern min-h-screen flex flex-col font-body-md text-on-surface transition-colors duration-300">
+<!-- Theme Toggle -->
+<div class="fixed top-lg left-lg z-50">
+<button class="p-sm rounded-full bg-surface-container hover:bg-surface-container-high dark:bg-on-surface-variant/20 dark:hover:bg-on-surface-variant/40 transition-colors shadow-sm" onclick="document.documentElement.classList.toggle('dark')">
+<span class="material-symbols-outlined text-on-surface-variant">light_mode</span>
+</button>
+</div>
+<main class="flex-grow flex items-center justify-end p-margin-mobile md:p-margin-desktop z-10 relative lg:pr-24">
+<div class="w-full max-w-[440px]">
+<!-- Branding Header -->
+<div class="text-center mb-xl">
+<div class="inline-flex items-center justify-center w-16 h-16 bg-primary-container text-on-primary-container rounded-xl mb-md shadow-lg">
+<span class="material-symbols-outlined !text-[32px]" style="font-variation-settings: 'FILL' 1;">school</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-primary dark:text-inverse-primary tracking-tight">EduManager</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant dark:text-surface-variant mt-xs">Secure Academic Portal Access</p>
+</div>
+<!-- Login Card -->
+<div class="login-card-backdrop border border-outline-variant/30 dark:border-outline/20 rounded-xl p-xl shadow-2xl backdrop-blur-md">
+<form class="space-y-lg" id="loginForm" onsubmit="return validateForm(event)">
+<!-- Username Field -->
+<div class="space-y-sm">
+<label class="font-label-sm text-label-sm text-on-surface-variant dark:text-surface-variant uppercase tracking-wider" for="username">Username</label>
+<div class="relative group">
+<div class="absolute inset-y-0 left-0 pl-md flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-outline group-focus-within:text-primary dark:group-focus-within:text-inverse-primary transition-colors">person</span>
+</div>
+<input class="w-full pl-[48px] pr-md py-md bg-surface-container-low dark:bg-on-surface-variant/10 border-outline-variant/50 dark:border-outline/30 rounded-lg text-body-md focus:ring-2 focus:ring-primary dark:focus:ring-inverse-primary focus:border-transparent transition-all outline-none" id="username" name="username" placeholder="Enter your ID or Email" type="text"/>
+<div class="hidden text-error font-label-sm text-label-sm mt-xs px-xs flex items-center gap-1" id="username-error">
+<span class="material-symbols-outlined !text-[14px]">error</span> Please enter your username
+                        </div>
+</div>
+</div>
+<!-- Password Field -->
+<div class="space-y-sm">
+<div class="flex justify-between items-center">
+<label class="font-label-sm text-label-sm text-on-surface-variant dark:text-surface-variant uppercase tracking-wider" for="password">Password</label>
+<a class="font-label-sm text-label-sm text-primary dark:text-inverse-primary hover:underline transition-all" href="#">Forgot Password?</a>
+</div>
+<div class="relative group">
+<div class="absolute inset-y-0 left-0 pl-md flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-outline group-focus-within:text-primary dark:group-focus-within:text-inverse-primary transition-colors">lock</span>
+</div>
+<input class="w-full pl-[48px] pr-md py-md bg-surface-container-low dark:bg-on-surface-variant/10 border-outline-variant/50 dark:border-outline/30 rounded-lg text-body-md focus:ring-2 focus:ring-primary dark:focus:ring-inverse-primary focus:border-transparent transition-all outline-none" id="password" name="password" placeholder="••••••••" type="password"/>
+<div class="hidden text-error font-label-sm text-label-sm mt-xs px-xs flex items-center gap-1" id="password-error">
+<span class="material-symbols-outlined !text-[14px]">error</span> Please enter your password
+                        </div>
+</div>
+</div>
+<!-- Options -->
+<div class="flex items-center">
+<label class="flex items-center cursor-pointer select-none">
+<div class="relative">
+<input class="sr-only" id="rememberMe" type="checkbox"/>
+<div class="w-5 h-5 border-2 border-outline rounded-sm bg-transparent transition-all peer-checked:bg-primary peer-checked:border-primary"></div>
+<span class="material-symbols-outlined absolute inset-0 text-white !text-[16px] flex items-center justify-center opacity-0 peer-checked:opacity-100">check</span>
+</div>
+<span class="ml-sm font-body-sm text-body-sm text-on-surface-variant dark:text-surface-variant">Remember me for 30 days</span>
+</label>
+</div>
+<!-- Submit Button -->
+<button class="w-full py-md bg-primary-container text-on-primary-container dark:bg-inverse-primary dark:text-primary-container font-title-md text-title-md rounded-lg shadow-md hover:shadow-xl active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-sm group" type="submit">
+                    Sign In
+                    <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</form>
+<!-- Help Link -->
+<div class="mt-lg pt-lg border-t border-outline-variant/30 dark:border-outline/20 text-center">
+<p class="font-body-sm text-body-sm text-on-surface-variant dark:text-surface-variant">
+                    New student or faculty? <a class="text-primary dark:text-inverse-primary font-bold hover:underline" href="#">Contact Administrator</a>
+</p>
+</div>
+</div>
+<!-- Footer Info -->
+<div class="mt-xl text-center">
+<p class="font-label-sm text-label-sm text-on-surface-variant/60 dark:text-surface-variant/40">
+                © 2024 EduManager Systems. All rights reserved. <br/>
+                Information System Version 4.2.0-stable
+            </p>
+</div>
+</div>
+</main>
+<!-- Support Bar -->
+<footer class="w-full py-md px-margin-desktop bg-surface-container-lowest/80 dark:bg-inverse-surface/80 backdrop-blur-sm border-t border-outline-variant/30 dark:border-outline/20 flex flex-col md:flex-row justify-between items-center gap-sm z-10 relative">
+<div class="flex gap-lg items-center">
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors" href="#">Privacy Policy</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors" href="#">Terms of Service</a>
+</div>
+<div class="flex gap-md items-center">
+<span class="material-symbols-outlined text-on-surface-variant !text-[18px]">support_agent</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">System Status: <span class="text-emerald-600 font-bold">Operational</span></span>
+</div>
+</footer>
+<script>
+    document.getElementById('rememberMe').addEventListener('change', function() {
+        const box = this.nextElementSibling;
+        if(this.checked) {
+            box.classList.add('bg-primary', 'border-primary');
+            box.nextElementSibling.classList.remove('opacity-0');
+        } else {
+            box.classList.remove('bg-primary', 'border-primary');
+            box.nextElementSibling.classList.add('opacity-0');
+        }
+    });
+
+    function validateForm(event) {
+        event.preventDefault();
+        
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+        const usernameError = document.getElementById('username-error');
+        const passwordError = document.getElementById('password-error');
+        
+        let isValid = true;
+
+        // Reset
+        usernameError.classList.add('hidden');
+        passwordError.classList.add('hidden');
+        usernameInput.classList.remove('border-error', 'ring-error');
+        passwordInput.classList.remove('border-error', 'ring-error');
+
+        if (!usernameInput.value.trim()) {
+            usernameError.classList.remove('hidden');
+            usernameInput.classList.add('border-error');
+            isValid = false;
+        }
+
+        if (!passwordInput.value.trim()) {
+            passwordError.classList.remove('hidden');
+            passwordInput.classList.add('border-error');
+            isValid = false;
+        }
+
+        if (isValid) {
+            const btn = event.target.querySelector('button[type="submit"]');
+            btn.disabled = true;
+            btn.innerHTML = `<span class="animate-spin material-symbols-outlined">sync</span> Processing...`;
+            
+            // Simulate redirect
+            setTimeout(() => {
+                alert("Login successful! Redirecting to Dashboard...");
+                btn.innerHTML = `Success!`;
+                btn.classList.add('bg-emerald-600');
+            }, 1500);
+        }
+
+        return false;
+    }
+
+    // Real-time cleaning of errors
+    document.getElementById('username').addEventListener('input', function() {
+        if (this.value.trim()) {
+            document.getElementById('username-error').classList.add('hidden');
+            this.classList.remove('border-error');
+        }
+    });
+
+    document.getElementById('password').addEventListener('input', function() {
+        if (this.value.trim()) {
+            document.getElementById('password-error').classList.add('hidden');
+            this.classList.remove('border-error');
+        }
+    });
+</script>
+</body></html>

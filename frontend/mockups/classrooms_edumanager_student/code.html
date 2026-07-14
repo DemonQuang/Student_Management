@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Classrooms | EduManager Student Portal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed": "#fcdeb5",
+                        "secondary": "#505f76",
+                        "outline-variant": "#c6c6cd",
+                        "on-secondary-container": "#54647a",
+                        "surface": "#fcf8fa",
+                        "inverse-surface": "#303032",
+                        "primary-container": "#131b2e",
+                        "outline": "#76777d",
+                        "on-tertiary": "#ffffff",
+                        "surface-bright": "#fcf8fa",
+                        "primary-fixed": "#dae2fd",
+                        "on-tertiary-fixed": "#271901",
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed-variant": "#574425",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed": "#d3e4fe",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-container": "#7c839b",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed-dim": "#dec29a",
+                        "surface-dim": "#dcd9db",
+                        "surface-container-low": "#f6f3f5",
+                        "surface-container-highest": "#e4e2e4",
+                        "surface-container-high": "#eae7e9",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "on-surface-variant": "#45464d",
+                        "on-background": "#1b1b1d",
+                        "primary-fixed-dim": "#bec6e0",
+                        "on-secondary-fixed-variant": "#38485d",
+                        "background": "#fcf8fa",
+                        "secondary-container": "#d0e1fb",
+                        "on-surface": "#1b1b1d",
+                        "surface-tint": "#565e74",
+                        "on-error-container": "#93000a",
+                        "surface-variant": "#e4e2e4",
+                        "primary": "#000000",
+                        "on-tertiary-container": "#98805d",
+                        "on-primary-fixed": "#131b2e",
+                        "tertiary": "#000000",
+                        "surface-container": "#f0edef",
+                        "inverse-on-surface": "#f3f0f2",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "tertiary-container": "#271901",
+                        "on-secondary-fixed": "#0b1c30",
+                        "inverse-primary": "#bec6e0",
+                        "error-container": "#ffdad6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "xl": "32px",
+                        "lg": "24px",
+                        "sm": "8px",
+                        "gutter": "24px",
+                        "md": "16px",
+                        "xs": "4px",
+                        "2xl": "48px",
+                        "margin-desktop": "32px",
+                        "base": "4px"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "code": ["Inter"],
+                        "title-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "headline-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "code": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "title-md": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "display-lg": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #fcf8fa; color: #1b1b1d; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .active-nav-border { position: relative; }
+        .active-nav-border::after { content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 2px; background-color: currentColor; }
+        .glass-card { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(226, 232, 240, 0.8); }
+        .availability-dot { width: 8px; height: 8px; border-radius: 50%; }
+        .bento-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 1.5rem; }
+        .bento-span-4 { grid-column: span 4; }
+        .bento-span-8 { grid-column: span 8; }
+        @media (max-width: 1024px) { .bento-span-4, .bento-span-8 { grid-column: span 12; } }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<header class="bg-surface docked full-width top-0 border-b border-outline-variant shadow-sm z-50">
+<div class="flex justify-between items-center w-full px-margin-desktop max-w-[1440px] mx-auto h-16">
+<div class="flex items-center gap-8">
+<span class="font-headline-lg text-headline-lg font-bold text-primary">EduManager</span>
+<nav class="hidden md:flex gap-6 items-center h-full pt-1">
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200 cursor-pointer active:opacity-80" href="#">Dashboard</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200 cursor-pointer active:opacity-80" href="#">My Profile</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200 cursor-pointer active:opacity-80" href="#">My Courses</a>
+<a class="font-body-md text-body-md text-primary font-bold border-b-2 border-primary pb-1 cursor-pointer active:opacity-80" href="#">Department</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container-low border border-outline-variant rounded-lg text-body-sm focus:ring-2 focus:ring-primary focus:outline-none w-64" placeholder="Search rooms..." type="text"/>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary p-2">notifications</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary p-2">settings</button>
+<div class="flex items-center gap-3 pl-4 border-l border-outline-variant">
+<img class="w-8 h-8 rounded-full object-cover" data-alt="A professional student profile portrait of a young adult wearing a clean academic blazer, photographed in soft natural indoor lighting against a blurred university hallway background. The overall aesthetic is clean, corporate, and trustworthy with high-key lighting and a muted color palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgBcvxOlVCa-UBs8zm16zqUwpddWwZceXyGhM4zPm54LcA9ip5WbhvLz2HCdxVUXzcqtMP_xCsxLYFGXvea1YqMF5mEmMtcEFBAGW3XRMK6ZxLlv7yRp6oZC5IE8rytuufTlLKMNv-m_3FqWAwIKoB01SK5d8paQWbwFmlo_3_KfjLIFMfIgPDE5oTF8yx4faDdF109vhsPLRHzV-VADlyEMLe3qPahm1RbXk_R_3MU1yln_gBoHuXcQ"/>
+<button class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200 cursor-pointer">Sign Out</button>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-grow w-full max-w-[1440px] mx-auto px-margin-desktop py-lg space-y-lg">
+<!-- Hero Section & Filters -->
+<section class="flex flex-col md:flex-row md:items-end justify-between gap-lg">
+<div class="space-y-sm">
+<h1 class="font-display-lg text-display-lg text-primary tracking-tight">Classrooms &amp; Study Spaces</h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">Find available environments for collaboration or deep focus. Check real-time availability and technical amenities across campus buildings.</p>
+</div>
+<div class="flex flex-wrap gap-md">
+<div class="flex flex-col gap-xs">
+<label class="font-label-sm text-label-sm text-on-surface-variant px-1">Building</label>
+<select class="bg-surface border border-outline-variant rounded-lg px-4 py-2 text-body-sm focus:ring-2 focus:ring-primary focus:outline-none min-w-[160px]">
+<option>All Buildings</option>
+<option>Innovation Hub</option>
+<option>North Wing Academics</option>
+<option>Science Plaza</option>
+</select>
+</div>
+<div class="flex flex-col gap-xs">
+<label class="font-label-sm text-label-sm text-on-surface-variant px-1">Room Type</label>
+<select class="bg-surface border border-outline-variant rounded-lg px-4 py-2 text-body-sm focus:ring-2 focus:ring-primary focus:outline-none min-w-[160px]">
+<option>Any Type</option>
+<option>Lecture Hall</option>
+<option>Collaborative Lab</option>
+<option>Quiet Study</option>
+</select>
+</div>
+</div>
+</section>
+<!-- Bento Grid Layout for Room Cards -->
+<section class="bento-grid">
+<!-- Featured / Large Card: Map View or High Demand Area -->
+<div class="bento-span-8 glass-card rounded-xl p-lg flex flex-col gap-md relative overflow-hidden h-[400px]">
+<div class="absolute inset-0 z-0">
+<div class="w-full h-full bg-cover bg-center opacity-40" data-alt="A high-quality architectural 3D rendering of a modern university floor plan. The map features minimalist clean lines, soft gray and blue tones, and glowing markers for different classrooms. The perspective is top-down, showing a sophisticated, high-end educational environment with clear corridor paths and open study zones." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC9O-g0Q4CPhU9kFI-3UnRUFaiS4ziSXIKWzC8gc5xaUM5w5Y9BM8VwJXtzmq5IjgvOhImn--Oq9-PT2ULK4xFPs0acC0BDbny7lSa20SZBcyDXkyPR2r4Fff-rv-I2cPyhUgPg5128zGCZN9RuJo2CcEQUAnlr1KHnqvrzsuwZ1iT-9c5iS4jgAgyX9KSNzk6gp-8etLFwJ5ot_sZ6EZRRv4tRHd-NBnRaAndFvJT_-dXnGA1pTT1bGw')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-surface to-transparent"></div>
+</div>
+<div class="relative z-10 mt-auto flex justify-between items-end">
+<div>
+<span class="bg-primary text-white text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-widest">Active Zone</span>
+<h2 class="font-headline-lg text-headline-lg mt-2">Innovation Hub: Level 2</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">4 rooms currently available for group study</p>
+</div>
+<button class="bg-primary text-on-primary px-lg py-sm rounded-lg font-body-md flex items-center gap-2 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-[20px]">map</span>
+                        View Full Map
+                    </button>
+</div>
+</div>
+<!-- Side Card: Fast Booking / Quick Availability -->
+<div class="bento-span-4 flex flex-col gap-gutter">
+<div class="bg-primary-container text-on-primary-container p-lg rounded-xl flex flex-col justify-between h-full shadow-sm">
+<div>
+<div class="flex items-center gap-2 mb-sm">
+<span class="material-symbols-outlined text-secondary-fixed">bolt</span>
+<span class="font-label-sm text-label-sm text-secondary-fixed">QUICK FIND</span>
+</div>
+<h3 class="font-title-md text-title-md text-white">Need a quiet spot right now?</h3>
+<p class="font-body-sm text-body-sm text-on-primary-container mt-2">Silent Room 402 is empty until 2:00 PM today.</p>
+</div>
+<button class="w-full bg-white text-primary-container py-3 rounded-lg font-bold text-body-md mt-lg hover:bg-secondary-fixed transition-colors">Reserve Spot</button>
+</div>
+</div>
+<!-- Room Listings Cards -->
+<!-- Card 1 -->
+<div class="col-span-12 md:col-span-6 lg:col-span-4 bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden hover:shadow-md transition-shadow">
+<div class="h-48 bg-cover bg-center" data-alt="A modern university classroom interior with glass walls, ergonomic navy blue chairs, and long white tables. Large windows reveal a lush green campus outside. The room is filled with bright, diffused daylight, highlighting its clean, professional, and contemporary educational design. 16:9 cinematic shot." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBjtd1QppReaKjTONc1t1DAj42SCrBIyYAQVKyGchqgoteZBJGh8rhye-pNqf2gWQhxVFvRWMViMtANhtXQ6_uf4_enr_9R34CuhqjEZWNs84TdankqFtnFkCMwnnOSqOAAsn1HNTXaIOvMkjV-sTfTi6pfAZD8dCLmD7c6X9ODulU-VETh5VspqKKfrE3L4Zvy54EGatCzHuA2zglZ_guALtmBoDOBHhL0ef4aH_kfNTDkjF0wDT6xfQ')"></div>
+<div class="p-md space-y-md">
+<div class="flex justify-between items-start">
+<div>
+<h4 class="font-title-md text-title-md text-primary">Collaborative Suite 204</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Innovation Hub • 8 Seats</p>
+</div>
+<div class="flex items-center gap-1.5 px-2 py-1 bg-emerald-50 text-emerald-700 rounded-full border border-emerald-100">
+<div class="availability-dot bg-emerald-500"></div>
+<span class="font-label-sm text-label-sm">Available</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-sm">
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">tv</span>
+<span class="text-body-sm">Dual Screen</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">wifi</span>
+<span class="text-body-sm">Gigabit WiFi</span>
+</div>
+</div>
+<div class="pt-md border-t border-outline-variant">
+<div class="flex justify-between items-center">
+<div class="space-y-1">
+<span class="font-label-sm text-label-sm text-outline">Next Booking</span>
+<p class="text-body-sm font-medium">1:30 PM (CS-101)</p>
+</div>
+<button class="text-primary font-bold text-body-sm hover:underline">Details</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="col-span-12 md:col-span-6 lg:col-span-4 bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden hover:shadow-md transition-shadow">
+<div class="h-48 bg-cover bg-center" data-alt="A high-capacity university lecture theater featuring tiered wooden seating and a large digital projector screen. The lighting is focused and warm, creating a professional academic atmosphere. The architectural design is minimalist with clean vertical lines and acoustic wall panels. Empty and pristine." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBXDB5lePZRIQODV2FLG07velIkWp4hcEjVyCzXQdb0DKMbgFDwZVJ-CSncBD90-Dt7sIDL4mqbZSHqPdM-23qit8ATFi5BV1IFsJVbB9H7dlVRjZi0YXMCfklfzisAmDJ9F-Muo5ykHdR4NPgEFP-NJzSfb3cGBULQuKZ8rHSA87QuUg_JH_6M2Q-DjiYCSQ6QOXUEDCyGUDe_a26TSo083SJivo_id3HI_XQnyTVbIxW9sj2g6rozgA')"></div>
+<div class="p-md space-y-md">
+<div class="flex justify-between items-start">
+<div>
+<h4 class="font-title-md text-title-md text-primary">Main Lecture Hall A</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">North Wing • 120 Seats</p>
+</div>
+<div class="flex items-center gap-1.5 px-2 py-1 bg-amber-50 text-amber-700 rounded-full border border-amber-100">
+<div class="availability-dot bg-amber-500"></div>
+<span class="font-label-sm text-label-sm">In Session</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-sm">
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">mic_external_on</span>
+<span class="text-body-sm">PA System</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">videocam</span>
+<span class="text-body-sm">Lecture Capture</span>
+</div>
+</div>
+<div class="pt-md border-t border-outline-variant">
+<div class="flex justify-between items-center">
+<div class="space-y-1">
+<span class="font-label-sm text-label-sm text-outline">Next Free Slot</span>
+<p class="text-body-sm font-medium">4:00 PM Today</p>
+</div>
+<button class="text-primary font-bold text-body-sm hover:underline">Full Schedule</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="col-span-12 md:col-span-6 lg:col-span-4 bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden hover:shadow-md transition-shadow">
+<div class="h-48 bg-cover bg-center" data-alt="A cozy, quiet university study nook with private wooden cubicles, soft individual desk lamps, and book-lined walls. The environment is intimate and serene, perfect for focused research. Warm ambient lighting contrasts with the cool tones of the library exterior visible through high windows." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCIVCoUCk6t_KbsieYrrLrRKwxdN8-e-ivzz_Mdl7N03xJHu2zoSZqtWim1N9ARNNf9FWw03XvY_sU_KOChxGoRZYwEKwF_Sb-PnuWxUrYWk6cvIlKtmPHhqjYUNTQi9HyUldV0fB4cbtZV9Jr_DWlWpOeK0BORrFjz5GvxbvT8HBV9lL6gqp7tEoIrQB8MbfI4CgdNzYgerHZHkF-k06GpBZcgOWn7Xu6Em_w4b5v8t6yUFGDIcUrllQ')"></div>
+<div class="p-md space-y-md">
+<div class="flex justify-between items-start">
+<div>
+<h4 class="font-title-md text-title-md text-primary">Library Pod 12</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Central Library • 1 Seat</p>
+</div>
+<div class="flex items-center gap-1.5 px-2 py-1 bg-emerald-50 text-emerald-700 rounded-full border border-emerald-100">
+<div class="availability-dot bg-emerald-500"></div>
+<span class="font-label-sm text-label-sm">Available</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-sm">
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">battery_charging_full</span>
+<span class="text-body-sm">Charging Port</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">volume_off</span>
+<span class="text-body-sm">Silent Zone</span>
+</div>
+</div>
+<div class="pt-md border-t border-outline-variant">
+<div class="flex justify-between items-center">
+<div class="space-y-1">
+<span class="font-label-sm text-label-sm text-outline">Walk-in Limit</span>
+<p class="text-body-sm font-medium">2 Hours max</p>
+</div>
+<button class="text-primary font-bold text-body-sm hover:underline">Reserve</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Stats / Quick Info Section -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-lg pt-lg border-t border-outline-variant">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-secondary-container">domain</span>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-outline">Total Campus Buildings</p>
+<p class="font-title-md text-title-md text-primary">14 Facilities</p>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-secondary-container">groups</span>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-outline">Open Collaborative Seats</p>
+<p class="font-title-md text-title-md text-primary">214 Available</p>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-secondary-container">calendar_today</span>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-outline">Upcoming Reservations</p>
+<p class="font-title-md text-title-md text-primary">2 Today</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-low border-t border-outline-variant w-full mt-2xl">
+<div class="flex flex-col md:flex-row justify-between items-center w-full px-margin-desktop py-lg max-w-[1440px] mx-auto gap-md">
+<div>
+<span class="font-title-md text-title-md font-bold text-on-surface">EduManager</span>
+<p class="font-label-sm text-label-sm text-secondary mt-1">© 2024 EduManager. All rights reserved.</p>
+</div>
+<div class="flex gap-lg">
+<a class="font-label-sm text-label-sm text-secondary hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="font-label-sm text-label-sm text-secondary hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="font-label-sm text-label-sm text-secondary hover:text-primary transition-colors" href="#">Help Desk</a>
+<a class="font-label-sm text-label-sm text-secondary hover:text-primary transition-colors" href="#">Contact Support</a>
+</div>
+</div>
+</footer>
+<!-- Interactive script for demo purposes -->
+<script>
+        document.querySelectorAll('select').forEach(select => {
+            select.addEventListener('change', function() {
+                console.log('Filter changed:', this.value);
+                // In a real app, this would trigger a re-render or API fetch
+            });
+        });
+    </script>
+</body></html>

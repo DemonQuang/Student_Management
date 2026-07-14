@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Departments | EduManager</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom scrollbar for high-density UI */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #e4e2e4; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #c6c6cd; }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+
+        .department-grid-item:hover .arrow-icon {
+            transform: translateX(4px);
+        }
+    </style>
+<!-- Shared Components Logic Injection -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed": "#fcdeb5",
+                    "secondary": "#505f76",
+                    "outline-variant": "#c6c6cd",
+                    "on-secondary-container": "#54647a",
+                    "surface": "#fcf8fa",
+                    "inverse-surface": "#303032",
+                    "primary-container": "#131b2e",
+                    "outline": "#76777d",
+                    "on-tertiary": "#ffffff",
+                    "surface-bright": "#fcf8fa",
+                    "primary-fixed": "#dae2fd",
+                    "on-tertiary-fixed": "#271901",
+                    "error": "#ba1a1a",
+                    "on-tertiary-fixed-variant": "#574425",
+                    "on-primary": "#ffffff",
+                    "secondary-fixed": "#d3e4fe",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary-container": "#7c839b",
+                    "on-error": "#ffffff",
+                    "tertiary-fixed-dim": "#dec29a",
+                    "surface-dim": "#dcd9db",
+                    "surface-container-low": "#f6f3f5",
+                    "surface-container-highest": "#e4e2e4",
+                    "surface-container-high": "#eae7e9",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "on-surface-variant": "#45464d",
+                    "on-background": "#1b1b1d",
+                    "primary-fixed-dim": "#bec6e0",
+                    "on-secondary-fixed-variant": "#38485d",
+                    "background": "#fcf8fa",
+                    "secondary-container": "#d0e1fb",
+                    "on-surface": "#1b1b1d",
+                    "surface-tint": "#565e74",
+                    "on-error-container": "#93000a",
+                    "surface-variant": "#e4e2e4",
+                    "primary": "#000000",
+                    "on-tertiary-container": "#98805d",
+                    "on-primary-fixed": "#131b2e",
+                    "tertiary": "#000000",
+                    "surface-container": "#f0edef",
+                    "inverse-on-surface": "#f3f0f2",
+                    "on-secondary": "#ffffff",
+                    "secondary-fixed-dim": "#b7c8e1",
+                    "tertiary-container": "#271901",
+                    "on-secondary-fixed": "#0b1c30",
+                    "inverse-primary": "#bec6e0",
+                    "error-container": "#ffdad6"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "margin-mobile": "16px",
+                    "xl": "32px",
+                    "lg": "24px",
+                    "sm": "8px",
+                    "gutter": "24px",
+                    "md": "16px",
+                    "xs": "4px",
+                    "2xl": "48px",
+                    "margin-desktop": "32px",
+                    "base": "4px"
+            },
+            "fontFamily": {
+                    "body-sm": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "code": ["Inter"],
+                    "title-md": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "body-md": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "headline-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "code": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "title-md": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "display-lg": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+</head>
+<body class="bg-background text-on-surface font-body-md min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<header class="bg-surface docked full-width top-0 shadow-sm border-b border-outline-variant z-50 sticky">
+<div class="flex justify-between items-center w-full px-margin-desktop max-w-[1440px] mx-auto h-16">
+<div class="flex items-center gap-xl">
+<span class="font-headline-lg text-headline-lg font-bold text-primary">EduManager</span>
+<nav class="hidden md:flex items-center gap-lg">
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200 cursor-pointer active:opacity-80" href="#">Dashboard</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200 cursor-pointer active:opacity-80" href="#">My Profile</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200 cursor-pointer active:opacity-80" href="#">My Courses</a>
+<a class="font-body-md text-body-md text-primary font-bold border-b-2 border-primary pb-1 transition-colors duration-200 cursor-pointer active:opacity-80" href="#">Department</a>
+</nav>
+</div>
+<div class="flex items-center gap-md">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="bg-surface-container-low border-none rounded-lg pl-10 pr-4 py-2 text-body-sm w-64 focus:ring-2 focus:ring-primary" placeholder="Search departments..." type="text"/>
+</div>
+<div class="flex items-center gap-sm">
+<button class="p-2 rounded-full hover:bg-surface-variant transition-colors"><span class="material-symbols-outlined">notifications</span></button>
+<button class="p-2 rounded-full hover:bg-surface-variant transition-colors"><span class="material-symbols-outlined">settings</span></button>
+</div>
+<div class="h-8 w-8 rounded-full overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional student profile portrait, high-quality lighting, neutral background, modern corporate attire, sharp focus, capturing a confident academic persona within the EduManager interface ecosystem." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCv7T8UHi9rKSqx4bVcsF4J0dZWpYdVeEPGXPx4N3vyEdsd0HQCqGY7HXju8Pjow_AvHHZlEKrKMfBPalcXhMKN-8sL4H-NANm9nQFmQMntjkIoj7feONrSpBFjb6TD7iiOITe7Tqk_xRNkte8Wd7FGeIPYhyLO9YgeNDP3kxyWYvRuz0jz3VRR8mViq96-x7zyYZnyFUj8_6Blt8BgimC223VzxjDLIOZUg-_3PSKrq3Xf1RvZoBs8XA"/>
+</div>
+<button class="bg-primary text-on-primary px-4 py-2 rounded-lg font-label-sm hover:opacity-90 transition-opacity">Sign Out</button>
+</div>
+</div>
+</header>
+<main class="flex-grow max-w-[1440px] mx-auto w-full px-margin-desktop py-xl">
+<!-- Header Section -->
+<div class="mb-2xl">
+<h1 class="font-display-lg text-display-lg text-primary mb-sm">Academic Departments</h1>
+<p class="text-on-surface-variant max-w-2xl font-body-md">Navigate through our institutional hierarchy. Explore specialized divisions, meet our leadership, and access direct contact channels for administrative and academic support.</p>
+</div>
+<!-- Department Directory: Bento Grid Style -->
+<div class="grid grid-cols-12 gap-gutter">
+<!-- Filter & Stats Sidebar -->
+<aside class="col-span-12 lg:col-span-3 space-y-gutter">
+<div class="p-lg rounded-xl border border-outline-variant bg-surface-container-lowest">
+<h3 class="font-title-md text-title-md mb-md">Quick Filters</h3>
+<ul class="space-y-sm">
+<li>
+<button class="w-full text-left px-md py-2 rounded-lg bg-secondary-container text-on-secondary-container font-label-sm">All Departments</button>
+</li>
+<li>
+<button class="w-full text-left px-md py-2 rounded-lg hover:bg-surface-container transition-colors text-on-surface-variant font-label-sm">STEM Divisions</button>
+</li>
+<li>
+<button class="w-full text-left px-md py-2 rounded-lg hover:bg-surface-container transition-colors text-on-surface-variant font-label-sm">Social Sciences</button>
+</li>
+<li>
+<button class="w-full text-left px-md py-2 rounded-lg hover:bg-surface-container transition-colors text-on-surface-variant font-label-sm">Humanities &amp; Arts</button>
+</li>
+</ul>
+</div>
+<div class="p-lg rounded-xl bg-primary-container text-on-primary-container">
+<h4 class="font-label-sm uppercase tracking-wider mb-xs opacity-70">Total Institutions</h4>
+<p class="font-display-lg text-display-lg">24</p>
+<p class="font-body-sm opacity-80 mt-2">Spanning across 4 campuses worldwide with 800+ dedicated faculty members.</p>
+</div>
+</aside>
+<!-- Main Directory Grid -->
+<div class="col-span-12 lg:col-span-9 grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- Card 1: Computer Science -->
+<div class="department-grid-item p-lg rounded-xl border border-outline-variant bg-surface hover:shadow-lg transition-all duration-300 group">
+<div class="flex justify-between items-start mb-md">
+<div class="p-3 rounded-lg bg-secondary-container text-primary">
+<span class="material-symbols-outlined" style="font-size: 32px;">terminal</span>
+</div>
+<span class="bg-secondary-fixed text-on-secondary-fixed-variant px-3 py-1 rounded-full text-label-sm">STEM</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg mb-sm">Computer Science</h2>
+<p class="text-on-surface-variant font-body-sm mb-lg line-clamp-3">Leading the digital frontier through innovative research in artificial intelligence, cybersecurity, and distributed systems. Committed to excellence in software engineering pedagogy.</p>
+<div class="space-y-sm border-t border-outline-variant pt-md">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-outline" style="font-size: 18px;">account_circle</span>
+<span class="text-body-sm font-semibold">Head: Dr. Aris Thorne</span>
+</div>
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-outline" style="font-size: 18px;">mail</span>
+<span class="text-body-sm">cs.admin@edumanager.edu</span>
+</div>
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-outline" style="font-size: 18px;">location_on</span>
+<span class="text-body-sm">Turing Hall, Room 402</span>
+</div>
+</div>
+<div class="mt-lg flex justify-end">
+<button class="flex items-center gap-xs font-label-sm text-primary group-hover:gap-sm transition-all duration-200">
+                            View Curriculum <span class="material-symbols-outlined arrow-icon transition-transform">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Card 2: Business & Economics -->
+<div class="department-grid-item p-lg rounded-xl border border-outline-variant bg-surface hover:shadow-lg transition-all duration-300 group">
+<div class="flex justify-between items-start mb-md">
+<div class="p-3 rounded-lg bg-tertiary-fixed text-on-tertiary-fixed">
+<span class="material-symbols-outlined" style="font-size: 32px;">monitoring</span>
+</div>
+<span class="bg-secondary-fixed text-on-secondary-fixed-variant px-3 py-1 rounded-full text-label-sm">Social Sciences</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg mb-sm">Business &amp; Economics</h2>
+<p class="text-on-surface-variant font-body-sm mb-lg line-clamp-3">Fostering future global leaders through a rigorous curriculum in financial analysis, market dynamics, and strategic organizational management.</p>
+<div class="space-y-sm border-t border-outline-variant pt-md">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-outline" style="font-size: 18px;">account_circle</span>
+<span class="text-body-sm font-semibold">Head: Prof. Elena Vance</span>
+</div>
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-outline" style="font-size: 18px;">mail</span>
+<span class="text-body-sm">business@edumanager.edu</span>
+</div>
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-outline" style="font-size: 18px;">location_on</span>
+<span class="text-body-sm">Skyline Pavilion, Wing B</span>
+</div>
+</div>
+<div class="mt-lg flex justify-end">
+<button class="flex items-center gap-xs font-label-sm text-primary group-hover:gap-sm transition-all duration-200">
+                            View Curriculum <span class="material-symbols-outlined arrow-icon transition-transform">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Card 3: Applied Physics -->
+<div class="department-grid-item p-lg rounded-xl border border-outline-variant bg-surface hover:shadow-lg transition-all duration-300 group">
+<div class="flex justify-between items-start mb-md">
+<div class="p-3 rounded-lg bg-secondary-container text-primary">
+<span class="material-symbols-outlined" style="font-size: 32px;">science</span>
+</div>
+<span class="bg-secondary-fixed text-on-secondary-fixed-variant px-3 py-1 rounded-full text-label-sm">STEM</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg mb-sm">Applied Physics</h2>
+<p class="text-on-surface-variant font-body-sm mb-lg line-clamp-3">Bridging theoretical physics with engineering applications. Research focus includes quantum computing hardware and renewable energy materials.</p>
+<div class="space-y-sm border-t border-outline-variant pt-md">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-outline" style="font-size: 18px;">account_circle</span>
+<span class="text-body-sm font-semibold">Head: Dr. Julian Kalt</span>
+</div>
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-outline" style="font-size: 18px;">mail</span>
+<span class="text-body-sm">physics@edumanager.edu</span>
+</div>
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-outline" style="font-size: 18px;">location_on</span>
+<span class="text-body-sm">Newton Labs, Basement 2</span>
+</div>
+</div>
+<div class="mt-lg flex justify-end">
+<button class="flex items-center gap-xs font-label-sm text-primary group-hover:gap-sm transition-all duration-200">
+                            View Curriculum <span class="material-symbols-outlined arrow-icon transition-transform">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Card 4: Architecture & Design -->
+<div class="department-grid-item p-lg rounded-xl border border-outline-variant bg-surface hover:shadow-lg transition-all duration-300 group">
+<div class="flex justify-between items-start mb-md">
+<div class="p-3 rounded-lg bg-tertiary-fixed text-on-tertiary-fixed">
+<span class="material-symbols-outlined" style="font-size: 32px;">architecture</span>
+</div>
+<span class="bg-secondary-fixed text-on-secondary-fixed-variant px-3 py-1 rounded-full text-label-sm">Humanities &amp; Arts</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg mb-sm">Architecture &amp; Design</h2>
+<p class="text-on-surface-variant font-body-sm mb-lg line-clamp-3">Synthesizing artistic vision with structural feasibility. Our studios focus on sustainable urban planning and modern industrial design.</p>
+<div class="space-y-sm border-t border-outline-variant pt-md">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-outline" style="font-size: 18px;">account_circle</span>
+<span class="text-body-sm font-semibold">Head: Sarah Jenkins, FAIA</span>
+</div>
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-outline" style="font-size: 18px;">mail</span>
+<span class="text-body-sm">design.office@edumanager.edu</span>
+</div>
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-outline" style="font-size: 18px;">location_on</span>
+<span class="text-body-sm">Atelier South, Floor 5</span>
+</div>
+</div>
+<div class="mt-lg flex justify-end">
+<button class="flex items-center gap-xs font-label-sm text-primary group-hover:gap-sm transition-all duration-200">
+                            View Curriculum <span class="material-symbols-outlined arrow-icon transition-transform">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Featured Resource Section (Bento Highlight) -->
+<div class="mt-2xl grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<div class="md:col-span-2 relative h-80 rounded-2xl overflow-hidden shadow-xl border border-outline-variant">
+<div class="absolute inset-0 z-10 bg-gradient-to-t from-primary/80 to-transparent flex flex-col justify-end p-xl">
+<h3 class="font-display-lg text-display-lg text-on-primary mb-sm">Interdisciplinary Studies</h3>
+<p class="text-on-primary opacity-90 max-w-lg mb-md">Our new cross-departmental initiatives allow students to bridge Computer Science with Design for the upcoming Digital Arts major.</p>
+<button class="bg-on-primary text-primary px-lg py-sm rounded-lg font-label-sm w-fit hover:bg-primary-fixed transition-colors">Explore Initiatives</button>
+</div>
+<img class="absolute inset-0 w-full h-full object-cover" data-alt="A modern collaborative university lab with large glass windows, sleek industrial desks, and students working on combined digital and physical art projects, high-key lighting, professional photography style, reflecting a collaborative academic environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKj6-4IfEo9I5MVt-iA-nQZiM1G0HJ3I9sUuZPCJbCRt7aib5kP5xIV09gXm1y27dtntFjaP4tPXbhaYDNpm2fGHXts1bCwml90WINsInfWTr9Ab_Rv5RUj_xv35hmMjRERejI8lkNNEdhbmr9bC8IMD_QSafSGai2z2qXm-t6rO5dfONf4x07lsuYXJK0u9eSl7RVaMFdB4OiUR5jtA2pzxQ0LPu0-Dfe4pIsa9UY_ii4EJwzek-aog"/>
+</div>
+<div class="bg-secondary-container p-xl rounded-2xl flex flex-col justify-center border border-outline-variant">
+<span class="material-symbols-outlined text-on-secondary-container mb-md" style="font-size: 48px;">school</span>
+<h3 class="font-title-md text-title-md mb-sm text-on-secondary-container">Dean's Office</h3>
+<p class="text-on-secondary-container opacity-80 mb-lg font-body-sm">For major academic appeals, credit transfers, and institutional policy inquiries, please book an appointment with the Dean of Faculty.</p>
+<div class="flex flex-col gap-sm">
+<button class="w-full py-2 bg-on-secondary-container text-white rounded-lg font-label-sm hover:opacity-90">Schedule Meeting</button>
+<button class="w-full py-2 border border-on-secondary-container text-on-secondary-container rounded-lg font-label-sm hover:bg-on-secondary-container/10">Download Handbook</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-low border-t border-outline-variant mt-2xl">
+<div class="flex flex-col md:flex-row justify-between items-center w-full px-margin-desktop py-lg max-w-[1440px] mx-auto">
+<div class="flex flex-col gap-xs items-center md:items-start mb-md md:mb-0">
+<span class="font-title-md text-title-md font-bold text-on-surface">EduManager</span>
+<p class="font-label-sm text-label-sm text-secondary">© 2024 EduManager. All rights reserved.</p>
+</div>
+<div class="flex flex-wrap justify-center gap-lg">
+<a class="font-label-sm text-label-sm text-secondary hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="font-label-sm text-label-sm text-secondary hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="font-label-sm text-label-sm text-secondary hover:text-primary transition-colors" href="#">Help Desk</a>
+<a class="font-label-sm text-label-sm text-secondary hover:text-primary transition-colors" href="#">Contact Support</a>
+</div>
+</div>
+</footer>
+<!-- Interactive Search Logic (Simple Micro-interaction) -->
+<script>
+        document.querySelector('input[placeholder="Search departments..."]').addEventListener('input', function(e) {
+            const term = e.target.value.toLowerCase();
+            const cards = document.querySelectorAll('.department-grid-item');
+            
+            cards.forEach(card => {
+                const title = card.querySelector('h2').textContent.toLowerCase();
+                const desc = card.querySelector('p').textContent.toLowerCase();
+                if (title.includes(term) || desc.includes(term)) {
+                    card.style.display = 'block';
+                    card.style.opacity = '1';
+                } else {
+                    card.style.display = 'none';
+                    card.style.opacity = '0';
+                }
+            });
+        });
+
+        // Hover Effect interaction enhancement
+        const items = document.querySelectorAll('.department-grid-item');
+        items.forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                item.classList.add('translate-y-[-4px]');
+            });
+            item.addEventListener('mouseleave', () => {
+                item.classList.remove('translate-y-[-4px]');
+            });
+        });
+    </script>
+</body></html>

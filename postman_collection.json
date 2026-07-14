@@ -1,0 +1,686 @@
+{
+	"info": {
+		"_postman_id": "4a73e6d2-8b4c-4d3c-9a1d-72e5a40a0001",
+		"name": "Student Management System API",
+		"description": "Postman Collection to test all RESTful APIs of Student Management System.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. Authentication",
+			"item": [
+				{
+					"name": "Register User / Admin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"admin\",\n    \"password\": \"admin123\",\n    \"fullName\": \"System Administrator\",\n    \"email\": \"admin@studentmgmt.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/auth/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"register"
+							]
+						},
+						"description": "Đăng ký tài khoản mới. Mặc định tài khoản được gán vai trò USER. Để đổi thành ADMIN, cần đăng nhập tài khoản ADMIN hiện tại để gọi API cập nhật vai trò."
+					},
+					"response": []
+				},
+				{
+					"name": "Login (Generate JWT)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"if(jsonData.success && jsonData.data && jsonData.data.accessToken) {",
+									"    pm.environment.set(\"token\", jsonData.data.accessToken);",
+									"    console.log(\"Saved JWT Token to environment variable 'token'\");",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"admin\",\n    \"password\": \"admin123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"login"
+							]
+						},
+						"description": "Đăng nhập bằng tài khoản và mật khẩu. Hệ thống sẽ trả về Access Token. Script Tests của request này sẽ tự động lưu token vào biến môi trường 'token'."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "2. Department Management",
+			"item": [
+				{
+					"name": "Create Department (Admin Only)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Information Technology\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/departments",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"departments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Departments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/departments",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"departments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Department By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/departments/{{dept_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"departments",
+								"{{dept_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Department (Admin Only)",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Information Technology Edited\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/departments/{{dept_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"departments",
+								"{{dept_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Department (Admin Only)",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/departments/{{dept_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"departments",
+								"{{dept_id}}"
+							]
+						},
+						"description": "API sẽ trả về lỗi 400 Bad Request nếu còn Classroom liên kết với Department này."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "3. Classroom Management",
+			"item": [
+				{
+					"name": "Create Classroom (Admin Only)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Class IT-01\",\n    \"departmentId\": \"{{dept_id}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/classrooms",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"classrooms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Classrooms",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/classrooms",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"classrooms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Classroom By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/classrooms/{{classroom_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"classrooms",
+								"{{classroom_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Classrooms By Department ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/classrooms/department/{{dept_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"classrooms",
+								"department",
+								"{{dept_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Classroom (Admin Only)",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Class IT-01 Edited\",\n    \"departmentId\": \"{{dept_id}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/classrooms/{{classroom_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"classrooms",
+								"{{classroom_id}}"
+							]
+						},
+						"description": "API sẽ trả về lỗi 400 Bad Request nếu cố tình thay đổi departmentId khi lớp đã có sinh viên đăng ký học."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Classroom (Admin Only)",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/classrooms/{{classroom_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"classrooms",
+								"{{classroom_id}}"
+							]
+						},
+						"description": "API sẽ trả về lỗi 400 Bad Request nếu còn sinh viên đăng ký lớp học này (kể cả đã bị soft-deleted)."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "4. Student Management",
+			"item": [
+				{
+					"name": "Create Student (Admin Only)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"studentCode\": \"SV001\",\n    \"fullName\": \"Nguyen Van A\",\n    \"email\": \"vana@gmail.com\",\n    \"phone\": \"0912345678\",\n    \"birthday\": \"2004-01-15\",\n    \"gender\": \"MALE\",\n    \"address\": \"Ho Chi Minh City\",\n    \"status\": \"ACTIVE\",\n    \"departmentId\": \"{{dept_id}}\",\n    \"classroomId\": \"{{classroom_id}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/students",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"students"
+							]
+						},
+						"description": "API sẽ validate ràng buộc chéo: classroomId phải thuộc departmentId. Nếu không khớp sẽ trả về lỗi 400 Bad Request."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Student By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/students/{{student_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"students",
+								"{{student_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Students Paginated",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/students?page=0&size=10&sort=studentCode&direction=asc",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"students"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								},
+								{
+									"key": "sort",
+									"value": "studentCode"
+								},
+								{
+									"key": "direction",
+									"value": "asc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Students",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/students/search?keyword=Nguyen&page=0&size=10",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"students",
+								"search"
+							],
+							"query": [
+								{
+									"key": "keyword",
+									"value": "Nguyen"
+								},
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								}
+							]
+						},
+						"description": "Tìm kiếm tương đối theo tên, mã sinh viên hoặc email của sinh viên."
+					},
+					"response": []
+				},
+				{
+					"name": "Filter Students",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/students/filter?departmentId={{dept_id}}&gender=MALE&status=ACTIVE&page=0&size=10",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"students",
+								"filter"
+							],
+							"query": [
+								{
+									"key": "departmentId",
+									"value": "{{dept_id}}"
+								},
+								{
+									"key": "classroomId",
+									"value": "{{classroom_id}}",
+									"disabled": true
+								},
+								{
+									"key": "gender",
+									"value": "MALE"
+								},
+								{
+									"key": "status",
+									"value": "ACTIVE"
+								},
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								}
+							]
+						},
+						"description": "Lọc động kết hợp nhiều điều kiện: Khoa, Lớp, Giới tính, Trạng thái."
+					},
+					"response": []
+				},
+				{
+					"name": "Update Student (Admin Only)",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"studentCode\": \"SV001\",\n    \"fullName\": \"Nguyen Van A Edited\",\n    \"email\": \"vana_new@gmail.com\",\n    \"phone\": \"0912345678\",\n    \"birthday\": \"2004-01-15\",\n    \"gender\": \"MALE\",\n    \"address\": \"Ho Chi Minh City, District 1\",\n    \"status\": \"ACTIVE\",\n    \"departmentId\": \"{{dept_id}}\",\n    \"classroomId\": \"{{classroom_id}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/students/{{student_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"students",
+								"{{student_id}}"
+							]
+						},
+						"description": "Cập nhật sinh viên. Lưu ý: studentCode trong payload phải giữ nguyên giá trị cũ vì mã sinh viên không được phép thay đổi."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Student (Admin Only - Soft Delete)",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/students/{{student_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"students",
+								"{{student_id}}"
+							]
+						},
+						"description": "Thực hiện xóa mềm sinh viên (đặt cờ deleted = true). Sinh viên bị xóa mềm sẽ không thể tìm thấy hoặc thao tác ở các API khác."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "5. User Administration (Admin Only)",
+			"item": [
+				{
+					"name": "Get All Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/users",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User Role",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"role\": \"ADMIN\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/users/{{user_id}}/role",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"{{user_id}}",
+								"role"
+							]
+						},
+						"description": "Cập nhật vai trò tài khoản người dùng thành ADMIN hoặc USER."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User Account",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/users/{{user_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"{{user_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

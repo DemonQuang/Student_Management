@@ -1,0 +1,483 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Classroom Management | EduManager</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid #e2e8f0;
+        }
+        /* Custom scrollbar for data-heavy views */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-container": "#d0e1fb",
+                    "outline-variant": "#c6c6cd",
+                    "on-tertiary-fixed": "#271901",
+                    "on-secondary": "#ffffff",
+                    "surface-container-high": "#eae7e9",
+                    "on-tertiary-fixed-variant": "#574425",
+                    "on-surface-variant": "#45464d",
+                    "surface-container-highest": "#e4e2e4",
+                    "surface-container": "#f0edef",
+                    "inverse-surface": "#303032",
+                    "on-primary-fixed": "#131b2e",
+                    "tertiary": "#000000",
+                    "surface-tint": "#565e74",
+                    "on-tertiary": "#ffffff",
+                    "surface-variant": "#e4e2e4",
+                    "surface-bright": "#fcf8fa",
+                    "on-tertiary-container": "#98805d",
+                    "surface-dim": "#dcd9db",
+                    "tertiary-fixed-dim": "#dec29a",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed-dim": "#bec6e0",
+                    "outline": "#76777d",
+                    "on-error": "#ffffff",
+                    "primary-container": "#131b2e",
+                    "on-secondary-container": "#54647a",
+                    "error-container": "#ffdad6",
+                    "secondary-fixed": "#d3e4fe",
+                    "on-primary-container": "#7c839b",
+                    "surface-container-low": "#f6f3f5",
+                    "inverse-primary": "#bec6e0",
+                    "on-background": "#1b1b1d",
+                    "primary": "#000000",
+                    "secondary-fixed-dim": "#b7c8e1",
+                    "on-secondary-fixed-variant": "#38485d",
+                    "error": "#ba1a1a",
+                    "inverse-on-surface": "#f3f0f2",
+                    "tertiary-fixed": "#fcdeb5",
+                    "tertiary-container": "#271901",
+                    "surface": "#fcf8fa",
+                    "on-surface": "#1b1b1d",
+                    "on-error-container": "#93000a",
+                    "background": "#fcf8fa",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "on-secondary-fixed": "#0b1c30",
+                    "primary-fixed": "#dae2fd",
+                    "on-primary": "#ffffff",
+                    "secondary": "#505f76"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "lg": "24px",
+                    "sm": "8px",
+                    "gutter": "24px",
+                    "xl": "32px",
+                    "xs": "4px",
+                    "2xl": "48px",
+                    "md": "16px",
+                    "margin-mobile": "16px",
+                    "margin-desktop": "32px",
+                    "base": "4px"
+            },
+            "fontFamily": {
+                    "title-md": ["Inter"],
+                    "code": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "body-sm": ["Inter"]
+            },
+            "fontSize": {
+                    "title-md": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "code": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "display-lg": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- Sidebar Navigation Shell -->
+<aside class="w-[260px] h-full fixed left-0 top-0 bg-surface border-r border-outline-variant flex flex-col py-md z-40">
+<div class="px-lg mb-xl">
+<h1 class="font-headline-lg text-headline-lg font-bold text-primary">EduManager</h1>
+<p class="text-on-surface-variant font-label-sm text-label-sm">Administrator Portal</p>
+</div>
+<nav class="flex-1 flex flex-col gap-1 overflow-y-auto">
+<!-- Dashboard (Inactive) -->
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors duration-200 ease-in-out font-title-md text-title-md" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="">Dashboard</span>
+</a>
+<!-- Students (Inactive) -->
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors duration-200 ease-in-out font-title-md text-title-md" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="">Students</span>
+</a>
+<!-- Departments (Active - Mapped to Classroom Management intent) -->
+<a class="flex items-center gap-3 px-4 py-3 text-primary border-l-4 border-primary bg-secondary-container/30 transition-colors duration-200 ease-in-out font-title-md text-title-md" href="#">
+<span class="material-symbols-outlined" data-icon="account_balance">account_balance</span>
+<span class="">Departments</span>
+</a>
+<!-- Courses (Inactive) -->
+<!-- Users (Inactive) -->
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors duration-200 ease-in-out font-title-md text-title-md" href="#">
+<span class="material-symbols-outlined" data-icon="manage_accounts">manage_accounts</span>
+<span class="">Users</span>
+</a>
+<!-- Profile (Inactive) -->
+</nav>
+<div class="mt-auto px-md pt-md border-t border-outline-variant">
+<div class="flex items-center gap-3 p-2 rounded-lg bg-surface-container">
+<img class="w-10 h-10 rounded-full object-cover" data-alt="Professional studio portrait of an administrative user with a neutral, clean background. The individual is wearing professional attire, and the lighting is bright and even, fitting a high-density corporate SaaS application aesthetic. The style is modern, realistic, and minimalist." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBs7nh9awFXW9DSE-HVWoq9aA2KAorCR9bmkVQcGa0ceWf60lxynSLucSWYaeFAnXujrbkc6Mt-ioiUEpgCowRWz_3y-JHn07aN_6lHN11Gyo31qzCRBPEswNVo7UOfBvRZS8lb4UzyYeAp6oxLLS7rhOhiMHyey4PU-6SZoSDIap-li4LEJ4gXkrkVW9tXFeQohbO520a9grq8q8lsNDOAztYWssvySKsMVcx_J66PDiEYfd5tiuMwLw">
+<div class="flex-1 min-w-0"><p class="font-title-md text-label-sm truncate">Alex Rivera</p><p class="text-on-surface-variant text-[10px] uppercase tracking-wider">System Admin</p></div>
+<span class="material-symbols-outlined text-outline" data-icon="settings">settings</span>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-[260px] min-h-screen relative flex flex-col">
+<!-- Top Nav Bar -->
+<header class="flex justify-between items-center h-16 px-margin-desktop w-full sticky top-0 z-30 bg-surface border-b border-outline-variant shadow-sm">
+<div class="flex items-center gap-lg">
+<h2 class="font-headline-lg text-headline-lg font-bold text-primary">Classroom Inventory</h2>
+<div class="relative w-64">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline" data-icon="search">search</span>
+<input class="w-full pl-10 pr-4 py-1.5 bg-surface-container-low border border-outline-variant rounded-full text-body-sm focus:ring-2 focus:ring-primary focus:outline-none transition-all" placeholder="Search rooms..." type="text">
+</div>
+</div>
+<div class="flex items-center gap-md">
+<button class="flex items-center gap-2 px-lg py-2 bg-primary text-on-primary rounded-lg font-label-sm text-label-sm hover:opacity-90 transition-all scale-95 active:scale-90">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+                    Add Room
+                </button>
+<div class="flex items-center gap-sm"><div class="flex items-center gap-3 pl-md border-l border-outline-variant/30"><div class="text-right hidden md:block"><p class="text-label-sm font-bold text-primary">Alex Rivera</p><p class="text-[10px] text-on-surface-variant uppercase tracking-wider">System Admin</p></div><img class="w-8 h-8 rounded-full object-cover border border-outline-variant" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBs7nh9awFXW9DSE-HVWoq9aA2KAorCR9bmkVQcGa0ceWf60lxynSLucSWYaeFAnXujrbkc6Mt-ioiUEpgCowRWz_3y-JHn07aN_6lHN11Gyo31qzCRBPEswNVo7UOfBvRZS8lb4UzyYeAp6oxLLS7rhOhiMHyey4PU-6SZoSDIap-li4LEJ4gXkrkVW9tXFeQohbO520a9grq8q8lsNDOAztYWssvySKsMVcx_J66PDiEYfd5tiuMwLw" alt="Alex Rivera"></div></div>
+</div>
+</header>
+<!-- Content Area -->
+<div class="flex-1 p-margin-desktop max-w-[1440px] mx-auto w-full">
+<!-- Filters & Summary Bento -->
+<div class="grid grid-cols-12 gap-gutter mb-lg">
+<div class="col-span-12 md:col-span-3 glass-card p-lg rounded-xl flex flex-col justify-center">
+<p class="text-on-surface-variant font-label-sm text-label-sm uppercase tracking-widest mb-xs">Total Capacity</p>
+<h3 class="font-display-lg text-display-lg text-primary">4,250</h3>
+<p class="text-body-sm text-on-surface-variant mt-xs flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-green-600" data-icon="trending_up">trending_up</span>
+<span class="">+120 seats added this term</span>
+</p>
+</div>
+<div class="col-span-12 md:col-span-3 glass-card p-lg rounded-xl flex flex-col justify-center">
+<p class="text-on-surface-variant font-label-sm text-label-sm uppercase tracking-widest mb-xs">Occupancy Rate</p>
+<h3 class="font-display-lg text-display-lg text-primary">82%</h3>
+<div class="w-full bg-surface-container h-2 rounded-full mt-sm overflow-hidden">
+<div class="bg-primary h-full w-[82%]"></div>
+</div>
+</div>
+<div class="col-span-12 md:col-span-6 glass-card p-lg rounded-xl">
+<div class="flex justify-between items-start mb-md">
+<h4 class="font-title-md text-title-md">Quick Filters</h4>
+<button class="text-primary font-label-sm text-label-sm flex items-center gap-1 hover:underline">
+                            Clear all
+                        </button>
+</div>
+<div class="flex flex-wrap gap-sm">
+<span class="px-lg py-1.5 bg-secondary-container text-on-secondary-container rounded-full text-label-sm border border-primary/10">All Types</span>
+<span class="px-lg py-1.5 bg-surface text-on-surface-variant border border-outline-variant rounded-full text-label-sm hover:border-primary cursor-pointer transition-colors">Lecture Hall</span>
+<span class="px-lg py-1.5 bg-surface text-on-surface-variant border border-outline-variant rounded-full text-label-sm hover:border-primary cursor-pointer transition-colors">Computer Lab</span>
+<span class="px-lg py-1.5 bg-surface text-on-surface-variant border border-outline-variant rounded-full text-label-sm hover:border-primary cursor-pointer transition-colors">Seminar Room</span>
+<span class="px-lg py-1.5 bg-surface text-on-surface-variant border border-outline-variant rounded-full text-label-sm hover:border-primary cursor-pointer transition-colors">Science Lab</span>
+</div>
+</div>
+</div>
+<!-- Classroom Grid -->
+<div class="grid grid-cols-12 gap-gutter">
+<!-- Room Card 1 -->
+<div class="col-span-12 md:col-span-4 glass-card rounded-xl overflow-hidden hover:shadow-lg transition-all group" style="transform: translateY(0px);">
+<div class="h-40 relative overflow-hidden">
+<div class="bg-cover bg-center w-full h-full transition-transform duration-500 group-hover:scale-110" data-alt="A spacious, ultra-modern university lecture hall with tiered wooden seating and clean white desks. Large windows allow natural bright light to flood the room, reflecting off the polished floors. High-end audiovisual equipment is integrated into the ceiling. The design is sleek, academic, and professional." style="background-image: url(&quot;https://lh3.googleusercontent.com/aida-public/AB6AXuCeCe5Htu0VXZySJU_f6-NS-pP4WzKncuQPzfkaSVcUNfBJEEq_grLgiqmw8aqK5bEjNq2R83fjEix6HTzwHjaljoFUr4h8ZTM6GuzsoG3jkK84dIZ0_jRpfVF0tdd4EDwfSbylxbYls-p8g1MnYJ80QYtMu8LxcP20Sd5o0bOCs4PpM-VP7ro5wUHRzJ55PC1Ooua9wGSatUrFHgFMjt5Yv6YrcLQavXs_8ZyYGZ6qRSJ930fADW6iCg&quot;);"></div>
+<div class="absolute top-4 right-4 px-3 py-1 bg-green-100 text-green-700 font-label-sm text-label-sm rounded-full flex items-center gap-1">
+<span class="w-2 h-2 bg-green-600 rounded-full animate-pulse"></span>
+                            Available
+                        </div>
+</div>
+<div class="p-lg">
+<div class="flex justify-between items-start mb-md">
+<div>
+<h3 class="font-title-md text-title-md text-primary">Hall A-102</h3>
+<p class="text-on-surface-variant font-body-sm text-body-sm">Humanities Building</p>
+</div>
+<button class="w-8 h-8 flex items-center justify-center text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+<div class="grid grid-cols-2 gap-md py-md border-y border-outline-variant/30">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline" data-icon="groups">groups</span>
+<span class="text-label-sm font-label-sm text-on-surface">150 Seats</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline" data-icon="school">school</span>
+<span class="text-label-sm font-label-sm text-on-surface">Lecture Hall</span>
+</div>
+</div>
+<div class="mt-md">
+<p class="text-label-sm font-bold uppercase text-on-surface-variant mb-xs">Next Session</p>
+<p class="text-body-sm text-on-surface">14:00 - Intro to Philosophy</p>
+</div>
+<button class="w-full mt-lg py-2 border border-primary text-primary font-label-sm text-label-sm rounded-lg hover:bg-primary hover:text-on-primary transition-colors">
+                            Book Room
+                        </button>
+</div>
+</div>
+<!-- Room Card 2 -->
+<div class="col-span-12 md:col-span-4 glass-card rounded-xl overflow-hidden hover:shadow-lg transition-all group border-primary/20">
+<div class="h-40 relative overflow-hidden">
+<div class="bg-cover bg-center w-full h-full transition-transform duration-500 group-hover:scale-110" data-alt="A high-tech computer laboratory filled with rows of dual-monitor workstations. The lighting is focused and professional, utilizing cool white LEDs. The furniture is ergonomic and modern, featuring grey and black tones. Cables are neatly managed, emphasizing a clean and organized academic environment." style="background-image: url(&quot;https://lh3.googleusercontent.com/aida-public/AB6AXuARRRi8W6OW7M69F0_EJtRx8oIpI_s7iNWRw48u6AaVUbKEdXYA6RLmCdB_YXkXjEePPYdQtHHSwkbPlOf30ywTOQccn4LJM3UDL5U5eb9FqnblMCT54ycryLynkgyITzOo5lIDkJDtjIHTGSjVrJ2GDtqxrwp6pdCT4DPNjsO9UtQOR-B7TgEcZy7JiEGNjU0qbY6H9zpiOfp2KMhl2cXpEKYhreZ2b4S4l8grnlquZ2RkhfPj5PrM6w&quot;);"></div>
+<div class="absolute top-4 right-4 px-3 py-1 bg-red-100 text-red-700 font-label-sm text-label-sm rounded-full flex items-center gap-1">
+<span class="w-2 h-2 bg-red-600 rounded-full"></span>
+                            In Use
+                        </div>
+</div>
+<div class="p-lg">
+<div class="flex justify-between items-start mb-md">
+<div>
+<h3 class="font-title-md text-title-md text-primary">Lab C-305</h3>
+<p class="text-on-surface-variant font-body-sm text-body-sm">Science &amp; Tech Center</p>
+</div>
+<button class="w-8 h-8 flex items-center justify-center text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+<div class="grid grid-cols-2 gap-md py-md border-y border-outline-variant/30">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline" data-icon="groups">groups</span>
+<span class="text-label-sm font-label-sm text-on-surface">32 Seats</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline" data-icon="biotech">biotech</span>
+<span class="text-label-sm font-label-sm text-on-surface">Computer Lab</span>
+</div>
+</div>
+<div class="mt-md">
+<p class="text-label-sm font-bold uppercase text-on-surface-variant mb-xs">Current Session</p>
+<p class="text-body-sm text-primary font-semibold">Data Structures CS201</p>
+<p class="text-[10px] text-on-surface-variant">Ends at 12:30 PM</p>
+</div>
+<button class="w-full mt-lg py-2 bg-surface-container text-on-surface-variant font-label-sm text-label-sm rounded-lg cursor-not-allowed transition-colors">
+                            View Schedule
+                        </button>
+</div>
+</div>
+<!-- Room Card 3 -->
+<div class="col-span-12 md:col-span-4 glass-card rounded-xl overflow-hidden hover:shadow-lg transition-all group">
+<div class="h-40 relative overflow-hidden">
+<div class="bg-cover bg-center w-full h-full transition-transform duration-500 group-hover:scale-110" data-alt="A contemporary seminar room with a large round wooden table in the center, surrounded by sleek ergonomic chairs. The walls are adorned with glass whiteboards, and a high-definition screen is mounted at one end. The ambiance is collaborative and professional, lit by soft recessed ceiling lights." style="background-image: url(&quot;https://lh3.googleusercontent.com/aida-public/AB6AXuCYCGOChbQV2yTRkWezYFHU3vaDOhLuhY0Gz7A58vxefjttPim53mNhmPvUEafdR3Y7Ju2sg5dT80IXg-HUhMgdK7dwnass4ZZLNgNvkchXAVpjxbnLWn0K9Cuag64koBNzwh7gocNugsf873Fe0HHK7k5eIpv3S9VSnZ4dSKF9XSnheIvUKRMLKe1DUvMBB1f6eRXWbB4Fdn6m6L2pjee8iZ_umhTo9FPZJtOHQpQizBKjsS5otgD5Ig&quot;);"></div>
+<div class="absolute top-4 right-4 px-3 py-1 bg-yellow-100 text-yellow-700 font-label-sm text-label-sm rounded-full flex items-center gap-1">
+<span class="w-2 h-2 bg-yellow-600 rounded-full"></span>
+                            Reserved
+                        </div>
+</div>
+<div class="p-lg">
+<div class="flex justify-between items-start mb-md">
+<div>
+<h3 class="font-title-md text-title-md text-primary">Meeting R-10</h3>
+<p class="text-on-surface-variant font-body-sm text-body-sm">Admin Block South</p>
+</div>
+<button class="w-8 h-8 flex items-center justify-center text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+<div class="grid grid-cols-2 gap-md py-md border-y border-outline-variant/30">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline" data-icon="groups">groups</span>
+<span class="text-label-sm font-label-sm text-on-surface">12 Seats</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline" data-icon="meeting_room">meeting_room</span>
+<span class="text-label-sm font-label-sm text-on-surface">Seminar Room</span>
+</div>
+</div>
+<div class="mt-md">
+<p class="text-label-sm font-bold uppercase text-on-surface-variant mb-xs">Next Session</p>
+<p class="text-body-sm text-on-surface">15:00 - Faculty Meeting</p>
+</div>
+<button class="w-full mt-lg py-2 border border-primary text-primary font-label-sm text-label-sm rounded-lg hover:bg-primary hover:text-on-primary transition-colors">
+                            Book Room
+                        </button>
+</div>
+</div>
+<!-- Room Card 4 -->
+<div class="col-span-12 md:col-span-4 glass-card rounded-xl overflow-hidden hover:shadow-lg transition-all group">
+<div class="h-40 relative overflow-hidden">
+<div class="bg-cover bg-center w-full h-full transition-transform duration-500 group-hover:scale-110" data-alt="A brightly lit modern science laboratory with stainless steel workstations and specialized equipment like microscopes and chemical storage units. The floor is industrial-grade polished concrete. The atmosphere is sterile, bright, and organized, reflecting a high-standard research environment." style="background-image: url(&quot;https://lh3.googleusercontent.com/aida-public/AB6AXuBTGF_2eJs792HkHTzLFkzcy-CXLx2xWvKVbCsd6D_-Te8zCNetJuPEgMW7_F2aQB-O5M363uboKe5bQ2HXg0DP_NQQ_SmQihPiGyhZz2VZnfoL7-vRoaf9W5QUqy7csJJhZ2INB9uEiRMYjusiQmarQQK9ys3Y_O_X0faCWQhzhCir2-nKHGD_cvnUhaKyL1-jHO7SyGoqmM2S7Nln6bnbwo8LkFCPd3QgYXkJ7DGU6E2679EBoCbrUg&quot;);"></div>
+<div class="absolute top-4 right-4 px-3 py-1 bg-green-100 text-green-700 font-label-sm text-label-sm rounded-full flex items-center gap-1">
+<span class="w-2 h-2 bg-green-600 rounded-full"></span>
+                            Available
+                        </div>
+</div>
+<div class="p-lg">
+<div class="flex justify-between items-start mb-md">
+<div>
+<h3 class="font-title-md text-title-md text-primary">Lab S-202</h3>
+<p class="text-on-surface-variant font-body-sm text-body-sm">Science &amp; Tech Center</p>
+</div>
+<button class="w-8 h-8 flex items-center justify-center text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+<div class="grid grid-cols-2 gap-md py-md border-y border-outline-variant/30">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline" data-icon="groups">groups</span>
+<span class="text-label-sm font-label-sm text-on-surface">24 Seats</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline" data-icon="science">science</span>
+<span class="text-label-sm font-label-sm text-on-surface">Science Lab</span>
+</div>
+</div>
+<div class="mt-md">
+<p class="text-label-sm font-bold uppercase text-on-surface-variant mb-xs">Next Session</p>
+<p class="text-body-sm text-on-surface">Tomorrow 09:00 - Chem 101</p>
+</div>
+<button class="w-full mt-lg py-2 border border-primary text-primary font-label-sm text-label-sm rounded-lg hover:bg-primary hover:text-on-primary transition-colors">
+                            Book Room
+                        </button>
+</div>
+</div>
+<!-- Table View Option (Hybrid Dashboard Layout) -->
+<div class="col-span-12 md:col-span-8 glass-card rounded-xl overflow-hidden">
+<div class="p-lg border-b border-outline-variant flex justify-between items-center bg-surface-container-low">
+<h3 class="font-title-md text-title-md">Schedule Overview</h3>
+<div class="flex gap-2">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container rounded-lg">
+<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container rounded-lg">
+<span class="material-symbols-outlined" data-icon="filter_list">filter_list</span>
+</button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-surface-container-low border-b border-outline-variant">
+<tr>
+<th class="px-lg py-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Room</th>
+<th class="px-lg py-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Status</th>
+<th class="px-lg py-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Next Event</th>
+<th class="px-lg py-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Capacity</th>
+<th class="px-lg py-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/30">
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-lg py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-secondary-container/50 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]" data-icon="domain">domain</span>
+</div>
+<div>
+<p class="font-body-md text-primary font-medium">B-204</p>
+<p class="text-[11px] text-on-surface-variant">Business Wing</p>
+</div>
+</div>
+</td>
+<td class="px-lg py-4">
+<span class="px-2 py-1 bg-green-100 text-green-700 text-[10px] font-bold rounded-full uppercase">Ready</span>
+</td>
+<td class="px-lg py-4">
+<p class="text-body-sm">Macroeconomics</p>
+<p class="text-[11px] text-on-surface-variant">14:30 PM</p>
+</td>
+<td class="px-lg py-4">
+<p class="text-body-sm">45/45</p>
+</td>
+<td class="px-lg py-4 text-right">
+<button class="text-primary hover:underline text-label-sm font-label-sm">Edit</button>
+</td>
+</tr>
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-lg py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-secondary-container/50 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]" data-icon="domain">domain</span>
+</div>
+<div>
+<p class="font-body-md text-primary font-medium">L-401</p>
+<p class="text-[11px] text-on-surface-variant">Library Annex</p>
+</div>
+</div>
+</td>
+<td class="px-lg py-4">
+<span class="px-2 py-1 bg-blue-100 text-blue-700 text-[10px] font-bold rounded-full uppercase">Cleaning</span>
+</td>
+<td class="px-lg py-4">
+<p class="text-body-sm">Literature Seminar</p>
+<p class="text-[11px] text-on-surface-variant">16:00 PM</p>
+</td>
+<td class="px-lg py-4">
+<p class="text-body-sm">20/20</p>
+</td>
+<td class="px-lg py-4 text-right">
+<button class="text-primary hover:underline text-label-sm font-label-sm">Edit</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Shell -->
+<footer class="w-full py-lg px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-md bg-surface-container mt-auto border-t border-outline-variant">
+<div class="flex flex-col md:flex-row items-center gap-lg">
+<span class="font-title-md text-title-md font-semibold text-primary">EduManager</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant opacity-80">© 2024 EduManager Student Management System. All rights reserved.</p>
+</div>
+<div class="flex gap-lg">
+<a class="text-on-surface-variant hover:text-primary transition-opacity opacity-80 hover:opacity-100 font-body-sm text-body-sm" href="#">Support</a>
+<a class="text-on-surface-variant hover:text-primary transition-opacity opacity-80 hover:opacity-100 font-body-sm text-body-sm" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant hover:text-primary transition-opacity opacity-80 hover:opacity-100 font-body-sm text-body-sm" href="#">Terms of Service</a>
+</div>
+</footer>
+</main>
+<!-- Floating Action Button for Adding Room (Secondary Mobile UI context) -->
+<button class="md:hidden fixed bottom-6 right-6 w-14 h-14 bg-primary text-on-primary rounded-full shadow-2xl flex items-center justify-center z-50">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+</button>
+<script>
+        // Simple micro-interaction for cards
+        document.querySelectorAll('.glass-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-4px)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+
+
+</body></html>

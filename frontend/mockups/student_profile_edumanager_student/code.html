@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>EduManager | Student Profile</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed": "#fcdeb5",
+                        "secondary": "#505f76",
+                        "outline-variant": "#c6c6cd",
+                        "on-secondary-container": "#54647a",
+                        "surface": "#fcf8fa",
+                        "inverse-surface": "#303032",
+                        "primary-container": "#131b2e",
+                        "outline": "#76777d",
+                        "on-tertiary": "#ffffff",
+                        "surface-bright": "#fcf8fa",
+                        "primary-fixed": "#dae2fd",
+                        "on-tertiary-fixed": "#271901",
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed-variant": "#574425",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed": "#d3e4fe",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-container": "#7c839b",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed-dim": "#dec29a",
+                        "surface-dim": "#dcd9db",
+                        "surface-container-low": "#f6f3f5",
+                        "surface-container-highest": "#e4e2e4",
+                        "surface-container-high": "#eae7e9",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "on-surface-variant": "#45464d",
+                        "on-background": "#1b1b1d",
+                        "primary-fixed-dim": "#bec6e0",
+                        "on-secondary-fixed-variant": "#38485d",
+                        "background": "#fcf8fa",
+                        "secondary-container": "#d0e1fb",
+                        "on-surface": "#1b1b1d",
+                        "surface-tint": "#565e74",
+                        "on-error-container": "#93000a",
+                        "surface-variant": "#e4e2e4",
+                        "primary": "#000000",
+                        "on-tertiary-container": "#98805d",
+                        "on-primary-fixed": "#131b2e",
+                        "tertiary": "#000000",
+                        "surface-container": "#f0edef",
+                        "inverse-on-surface": "#f3f0f2",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "tertiary-container": "#271901",
+                        "on-secondary-fixed": "#0b1c30",
+                        "inverse-primary": "#bec6e0",
+                        "error-container": "#ffdad6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "xl": "32px",
+                        "lg": "24px",
+                        "sm": "8px",
+                        "gutter": "24px",
+                        "md": "16px",
+                        "xs": "4px",
+                        "2xl": "48px",
+                        "margin-desktop": "32px",
+                        "base": "4px"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "code": ["Inter"],
+                        "title-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "headline-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "code": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "title-md": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "display-lg": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+            line-height: 1;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+        }
+        .card-shadow {
+            box-shadow: 0px 1px 3px rgba(0,0,0,0.1);
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<header class="bg-surface dark:bg-inverse-surface border-b border-outline-variant dark:border-outline shadow-sm dark:shadow-none sticky top-0 z-50">
+<div class="flex justify-between items-center w-full px-margin-desktop max-w-[1440px] mx-auto h-16">
+<div class="flex items-center gap-xl">
+<span class="font-headline-lg text-headline-lg font-bold text-primary dark:text-primary-fixed-dim">EduManager</span>
+<nav class="hidden md:flex items-center gap-lg">
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-secondary-fixed-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200 cursor-pointer active:opacity-80" href="#">Dashboard</a>
+<a class="font-body-md text-body-md text-primary dark:text-primary-fixed-dim font-bold border-b-2 border-primary dark:border-primary-fixed-dim pb-1 cursor-pointer active:opacity-80" href="#">My Profile</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-secondary-fixed-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200 cursor-pointer active:opacity-80" href="#">My Courses</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-secondary-fixed-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200 cursor-pointer active:opacity-80" href="#">Department</a>
+</nav>
+</div>
+<div class="flex items-center gap-md">
+<div class="hidden sm:flex items-center bg-surface-container-low px-sm py-xs rounded-lg border border-outline-variant">
+<span class="material-symbols-outlined text-outline">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-sm w-48" placeholder="Search students..." type="text"/>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors">notifications</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors">settings</button>
+<div class="h-8 w-8 rounded-full bg-primary-container flex items-center justify-center overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional studio portrait of a university student with a friendly expression, wearing a navy blazer and white shirt. The background is a soft, out-of-focus academic setting with warm wood tones and library books. The lighting is soft and flattering, emphasizing a clean, modern, and trustworthy corporate-academic aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCxI0hiIu0OFcdl2rD7PRnocEWnIKn8MfwfCt9j47bIiOJnqaqu_wvn83nQDhFgnv1mifVewbv0hMcW4BCnKoK5g4xebeEhSXO5nAG6GgqPnHfPV_IvZetz2lodfYflpsfjQ0catNARfBLadpoFhE6YP3wflLhCBZPS4S0P-bJYnfIhtsv7tlabTNSN6e9Ubt9TYSCTg2VmMZO0JFT09wdzF_mLvByPI1OvRgTNsm9EvGWOx4MLjGwbg"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow w-full max-w-[1440px] mx-auto px-margin-desktop py-xl">
+<!-- Breadcrumb / Header Actions -->
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-lg gap-md">
+<div>
+<nav class="flex items-center gap-xs text-on-surface-variant font-label-sm text-label-sm mb-xs">
+<a class="hover:text-primary" href="#">Directory</a>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-primary font-bold">Student Profile</span>
+</nav>
+<h1 class="font-display-lg text-display-lg text-primary">Julianne Sterling</h1>
+</div>
+<div class="flex gap-md">
+<button class="flex items-center gap-sm px-lg py-sm bg-secondary-container text-on-secondary-fixed font-title-md text-title-md rounded-lg hover:opacity-90 transition-opacity border border-outline-variant">
+<span class="material-symbols-outlined">mail</span>
+<span>Send Message</span>
+</button>
+<button class="flex items-center gap-sm px-lg py-sm bg-primary text-on-primary font-title-md text-title-md rounded-lg hover:bg-opacity-90 transition-all">
+<span class="material-symbols-outlined" data-weight="fill">person_add</span>
+<span>Connect</span>
+</button>
+</div>
+</div>
+<!-- Bento Layout -->
+<div class="bento-grid">
+<!-- Profile Hero Card -->
+<div class="col-span-12 lg:col-span-4 flex flex-col gap-lg">
+<div class="bg-surface card-shadow border border-outline-variant rounded-xl overflow-hidden">
+<div class="h-32 bg-primary-container relative overflow-hidden">
+</div>
+<div class="px-lg pb-lg -mt-16 relative">
+<div class="w-32 h-32 rounded-xl bg-surface border-4 border-surface shadow-md overflow-hidden mb-md">
+<img class="w-full h-full object-cover" data-alt="A high-quality close-up portrait of a young woman with a sharp, professional look. She has a confident smile and is wearing a dark charcoal turtleneck. The image style is clean, high-contrast, and minimalist, typical of modern corporate SaaS interfaces. Soft natural light illuminates her face from the side." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAy4jm6vQuR8qsup7miX897j4dSu9OZ_pMpItuWusst_yAuGxsohehy-JgLoVeLQs8RAjK0_vrpQdXl2ioFCdyxkBN3KnavBYHoneMuEYWA69l7vdFDFSvji6I3kGocB7xbuj6jlLiE0kwdWN-XKoUqoli5A0npbibDiH6B7gwagzdcbEeRhg_w57ixYRToJOv8Wy1jKkyR3tWhi5zSOw48QINeu0blCq5ToaBlRRzk-MscSl3sodCMwg"/>
+</div>
+<div class="flex flex-col gap-xs">
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Julianne Sterling</h2>
+<p class="text-on-surface-variant font-body-md text-body-md">Senior • Class of 2024</p>
+<div class="flex flex-wrap gap-xs mt-sm">
+<span class="px-sm py-[2px] bg-secondary-container text-on-secondary-container rounded-full font-label-sm text-label-sm border border-outline-variant">Honors Program</span>
+<span class="px-sm py-[2px] bg-tertiary-fixed text-on-tertiary-fixed-variant rounded-full font-label-sm text-label-sm border border-outline-variant">Student Gov</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Academic Specs -->
+<div class="bg-surface card-shadow border border-outline-variant rounded-xl p-lg flex flex-col gap-md">
+<h3 class="font-title-md text-title-md text-on-surface flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary">school</span>
+                        Academic Path
+                    </h3>
+<div class="grid grid-cols-1 gap-md">
+<div class="p-md bg-surface-container-low rounded-lg border border-outline-variant">
+<span class="font-label-sm text-label-sm text-on-surface-variant block uppercase tracking-wider">Major</span>
+<span class="font-title-md text-title-md text-primary">B.S. Computer Science</span>
+</div>
+<div class="p-md bg-surface-container-low rounded-lg border border-outline-variant">
+<span class="font-label-sm text-label-sm text-on-surface-variant block uppercase tracking-wider">Minor</span>
+<span class="font-title-md text-title-md text-primary">Cognitive Psychology</span>
+</div>
+<div class="p-md bg-surface-container-low rounded-lg border border-outline-variant">
+<span class="font-label-sm text-label-sm text-on-surface-variant block uppercase tracking-wider">Department</span>
+<span class="font-title-md text-title-md text-primary">Engineering &amp; Tech</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Detailed Content Area -->
+<div class="col-span-12 lg:col-span-8 flex flex-col gap-lg">
+<!-- About / Bio -->
+<div class="bg-surface card-shadow border border-outline-variant rounded-xl p-lg">
+<h3 class="font-title-md text-title-md text-on-surface mb-md">About Julianne</h3>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                        I am a fourth-year Computer Science student passionate about the intersection of Artificial Intelligence and Human-Computer Interaction. My academic journey has focused on building accessible technology that bridges the gap between complex data and everyday users. Currently leading the university's Tech for Good initiative and working as a Teaching Assistant for advanced Algorithms.
+                    </p>
+</div>
+<!-- Skills & Interests Bento Row -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+<!-- Core Skills -->
+<div class="bg-surface card-shadow border border-outline-variant rounded-xl p-lg">
+<h3 class="font-title-md text-title-md text-on-surface mb-lg">Core Skills</h3>
+<div class="flex flex-wrap gap-sm">
+<div class="flex items-center gap-sm px-md py-sm bg-surface-container-high rounded-lg border border-outline-variant hover:border-primary transition-colors group cursor-default">
+<span class="material-symbols-outlined text-on-primary-fixed-variant group-hover:text-primary">code</span>
+<span class="font-body-sm text-body-sm text-on-surface">Python &amp; C++</span>
+</div>
+<div class="flex items-center gap-sm px-md py-sm bg-surface-container-high rounded-lg border border-outline-variant hover:border-primary transition-colors group cursor-default">
+<span class="material-symbols-outlined text-on-primary-fixed-variant group-hover:text-primary">data_object</span>
+<span class="font-body-sm text-body-sm text-on-surface">React / Tailwind</span>
+</div>
+<div class="flex items-center gap-sm px-md py-sm bg-surface-container-high rounded-lg border border-outline-variant hover:border-primary transition-colors group cursor-default">
+<span class="material-symbols-outlined text-on-primary-fixed-variant group-hover:text-primary">psychology</span>
+<span class="font-body-sm text-body-sm text-on-surface">UX Research</span>
+</div>
+<div class="flex items-center gap-sm px-md py-sm bg-surface-container-high rounded-lg border border-outline-variant hover:border-primary transition-colors group cursor-default">
+<span class="material-symbols-outlined text-on-primary-fixed-variant group-hover:text-primary">database</span>
+<span class="font-body-sm text-body-sm text-on-surface">PostgreSQL</span>
+</div>
+<div class="flex items-center gap-sm px-md py-sm bg-surface-container-high rounded-lg border border-outline-variant hover:border-primary transition-colors group cursor-default">
+<span class="material-symbols-outlined text-on-primary-fixed-variant group-hover:text-primary">terminal</span>
+<span class="font-body-sm text-body-sm text-on-surface">Cloud Arch</span>
+</div>
+</div>
+</div>
+<!-- Academic Interests -->
+<div class="bg-surface card-shadow border border-outline-variant rounded-xl p-lg">
+<h3 class="font-title-md text-title-md text-on-surface mb-lg">Focus Areas</h3>
+<div class="space-y-md">
+<div class="flex justify-between items-center">
+<span class="font-body-sm text-body-sm text-on-surface">Deep Learning</span>
+<span class="w-24 h-2 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 85%;"></div>
+</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-body-sm text-body-sm text-on-surface">HCI Principles</span>
+<span class="w-24 h-2 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 95%;"></div>
+</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-body-sm text-body-sm text-on-surface">Distributed Systems</span>
+<span class="w-24 h-2 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 70%;"></div>
+</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Current Projects / Portfolio Glimpse -->
+<div class="bg-surface card-shadow border border-outline-variant rounded-xl p-lg relative overflow-hidden">
+<div class="absolute top-0 right-0 p-lg opacity-10 pointer-events-none">
+<span class="material-symbols-outlined text-[80px]">architecture</span>
+</div>
+<h3 class="font-title-md text-title-md text-on-surface mb-lg">Active Research &amp; Projects</h3>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-md">
+<a class="p-md rounded-lg border border-outline-variant bg-surface hover:bg-surface-container-low transition-all group" href="#">
+<div class="flex items-center justify-between mb-xs">
+<span class="font-label-sm text-label-sm text-secondary">Research Paper</span>
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</div>
+<h4 class="font-body-md text-body-md font-bold text-on-surface">Neuro-Adaptive Interfaces</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-xs line-clamp-2">Study on real-time UI adjustments based on cognitive load metrics.</p>
+</a>
+<a class="p-md rounded-lg border border-outline-variant bg-surface hover:bg-surface-container-low transition-all group" href="#">
+<div class="flex items-center justify-between mb-xs">
+<span class="font-label-sm text-label-sm text-secondary">Open Source</span>
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</div>
+<h4 class="font-body-md text-body-md font-bold text-on-surface">Accessibility Toolkit</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-xs line-clamp-2">A JavaScript library for implementing voice-first navigation for web apps.</p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-low dark:bg-surface-container-lowest border-t border-outline-variant dark:border-outline mt-2xl">
+<div class="flex flex-col md:flex-row justify-between items-center w-full px-margin-desktop py-lg max-w-[1440px] mx-auto">
+<div class="flex flex-col items-center md:items-start gap-xs mb-md md:mb-0">
+<span class="font-title-md text-title-md font-bold text-on-surface">EduManager</span>
+<span class="font-label-sm text-label-sm text-secondary dark:text-secondary-fixed">© 2024 EduManager. All rights reserved.</span>
+</div>
+<nav class="flex flex-wrap justify-center gap-lg">
+<a class="font-label-sm text-label-sm text-secondary dark:text-secondary-fixed hover:text-primary dark:hover:text-primary-fixed transition-colors" href="#">Privacy Policy</a>
+<a class="font-label-sm text-label-sm text-secondary dark:text-secondary-fixed hover:text-primary dark:hover:text-primary-fixed transition-colors" href="#">Terms of Service</a>
+<a class="font-label-sm text-label-sm text-secondary dark:text-secondary-fixed hover:text-primary dark:hover:text-primary-fixed transition-colors" href="#">Help Desk</a>
+<a class="font-label-sm text-label-sm text-secondary dark:text-secondary-fixed hover:text-primary dark:hover:text-primary-fixed transition-colors" href="#">Contact Support</a>
+</nav>
+</div>
+</footer>
+<!-- Interactive script for button states -->
+<script>
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('mousedown', () => button.classList.add('scale-[0.98]'));
+            button.addEventListener('mouseup', () => button.classList.remove('scale-[0.98]'));
+            button.addEventListener('mouseleave', () => button.classList.remove('scale-[0.98]'));
+        });
+    </script>
+</body></html>
