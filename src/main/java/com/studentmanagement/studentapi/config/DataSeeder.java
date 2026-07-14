@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.StreamSupport;
 
 @Component
 public class DataSeeder implements CommandLineRunner {
@@ -42,6 +43,14 @@ public class DataSeeder implements CommandLineRunner {
     }
 
     private void seedAdminUser() {
+        // Remove duplicate admin users (if any from previous runs)
+        List<User> allAdmins = StreamSupport.stream(userRepository.findAll().spliterator(), false)
+                .filter(u -> "admin".equals(u.getUsername()))
+                .toList();
+        if (allAdmins.size() > 1) {
+            allAdmins.stream().skip(1).forEach(userRepository::delete);
+        }
+
         userRepository.findByUsername("admin").ifPresentOrElse(
             user -> {
                 if (!"ADMIN".equals(user.getRole())) {
