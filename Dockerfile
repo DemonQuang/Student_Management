@@ -6,7 +6,7 @@ WORKDIR /app
 COPY frontend/package.json frontend/package-lock.json ./
 RUN npm ci
 COPY frontend/ .
-RUN npm run build
+RUN echo "VITE_API_URL=" > .env.production && npm run build
 
 # Stage 2: Build backend
 FROM maven:3.9.6-eclipse-temurin-21 AS backend-build

@@ -66,7 +66,9 @@ public class WebSecurityConfig {
                         // Public endpoints
                         .requestMatchers("/api/v1/auth/**").permitAll()
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll()
-                        .requestMatchers("/", "/index.html", "/static/**", "/css/**", "/js/**", "/assets/**", "/favicon.ico").permitAll()
+                        .requestMatchers("/", "/index.html", "/static/**", "/css/**", "/js/**", "/assets/**", "/favicon.ico", "/favicon.svg", "/icons.svg").permitAll()
+                        .requestMatchers("/login", "/register", "/forgot-password",
+                                "/admin/**", "/student/**").permitAll()
 
                         // User management (Admin only)
                         .requestMatchers("/api/v1/users/**").hasRole("ADMIN")
