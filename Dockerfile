@@ -1,13 +1,22 @@
-# Stage 1: Build the application
-FROM maven:3.9.6-eclipse-temurin-21 AS build
+# Stage 1: Build frontend
+FROM node:20-alpine AS frontend-build
+WORKDIR /app
+COPY frontend/package.json frontend/package-lock.json ./
+RUN npm ci
+COPY frontend/ .
+RUN npm run build
+
+# Stage 2: Build backend
+FROM maven:3.9.6-eclipse-temurin-21 AS backend-build
 WORKDIR /app
 COPY pom.xml .
 COPY src ./src
+COPY --from=frontend-build /app/dist ./src/main/resources/static/
 RUN mvn clean package -DskipTests
 
-# Stage 2: Run the application
+# Stage 3: Run
 FROM eclipse-temurin:21-jre-jammy
 WORKDIR /app
-COPY --from=build /app/target/student-management-api-*.jar app.jar
+COPY --from=backend-build /app/target/student-management-api-*.jar app.jar
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "app.jar"]
